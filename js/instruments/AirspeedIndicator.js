@@ -3,55 +3,55 @@ class AirspeedIndicator extends Instrument {
         super(x, y, size);
         this.speed = 0;
         this.maxSpeed = 400;
-        this.greenArc = {min: 60, max: 240};
-        this.yellowArc = {min: 240, max: 350};
+        this.greenArc = { min: 60, max: 240 };
+        this.yellowArc = { min: 240, max: 350 };
     }
-    
+
     draw(ctx) {
         // Draw common background first
         this.drawInstrumentBackground(ctx);
-        
+
         ctx.save();
         ctx.translate(this.x, this.y);
-        
+
         // Draw colored arcs
-        const radius = this.size/2 - 20;
-        
+        const radius = this.size / 2 - 5;
+
         // Convert speeds to angles (0 at bottom, clockwise)
         const speedToAngle = (speed) => {
             return ((speed / this.maxSpeed) * 300 + 120) * Math.PI / 180;
         };
-        
+
         // Draw green arc (normal operating range)
         ctx.beginPath();
-        ctx.arc(0, 0, radius, 
-            speedToAngle(this.greenArc.min), 
+        ctx.arc(0, 0, radius,
+            speedToAngle(this.greenArc.min),
             speedToAngle(this.greenArc.max));
         ctx.lineWidth = 8;
         ctx.strokeStyle = 'rgba(0, 255, 0, 0.3)';
         ctx.stroke();
-        
+
         // Draw yellow arc (caution range)
         ctx.beginPath();
-        ctx.arc(0, 0, radius, 
-            speedToAngle(this.yellowArc.min), 
+        ctx.arc(0, 0, radius,
+            speedToAngle(this.yellowArc.min),
             speedToAngle(this.yellowArc.max));
         ctx.strokeStyle = 'rgba(255, 255, 0, 0.3)';
         ctx.stroke();
-        
+
         // Draw speed graduations
         ctx.lineWidth = 2;
         ctx.strokeStyle = this.colors.markings;
         ctx.fillStyle = this.colors.numbers;
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
-        ctx.font = `${this.size/15}px Arial`;
-        
-        for(let speed = 0; speed <= this.maxSpeed; speed += 20) {
+        ctx.font = `${this.size / 15}px Arial`;
+
+        for (let speed = 0; speed <= this.maxSpeed; speed += 20) {
             const angle = speedToAngle(speed);
             const isMainGraduation = speed % 100 === 0;
             const gradLength = isMainGraduation ? 15 : 10;
-            
+
             // Draw graduation line
             ctx.beginPath();
             ctx.moveTo(
@@ -63,7 +63,7 @@ class AirspeedIndicator extends Instrument {
                 Math.sin(angle) * radius
             );
             ctx.stroke();
-            
+
             // Draw number for main graduations
             if (isMainGraduation) {
                 const textRadius = radius - 25;
@@ -74,10 +74,10 @@ class AirspeedIndicator extends Instrument {
                 );
             }
         }
-        
+
         // Draw the needle
         const angle = speedToAngle(this.speed);
-        
+
         // Create needle path
         const needlePath = new Path2D();
         const needleLength = radius - 10;
@@ -90,12 +90,12 @@ class AirspeedIndicator extends Instrument {
             y: Math.sin(angle) * needleLength
         };
         const leftBase = {
-            x: Math.cos(angle - Math.PI/2) * needleWidth,
-            y: Math.sin(angle - Math.PI/2) * needleWidth
+            x: Math.cos(angle - Math.PI / 2) * needleWidth,
+            y: Math.sin(angle - Math.PI / 2) * needleWidth
         };
         const rightBase = {
-            x: Math.cos(angle + Math.PI/2) * needleWidth,
-            y: Math.sin(angle + Math.PI/2) * needleWidth
+            x: Math.cos(angle + Math.PI / 2) * needleWidth,
+            y: Math.sin(angle + Math.PI / 2) * needleWidth
         };
         const blackTip = {
             x: Math.cos(angle) * blackPartLength,
@@ -144,18 +144,18 @@ class AirspeedIndicator extends Instrument {
         ctx.strokeStyle = 'white';
         ctx.lineWidth = 2;
         ctx.stroke();
-        
+
         ctx.restore();
-        
+
         // Draw speed value
-        ctx.font = `${this.size/12}px Arial`;
+        ctx.font = `${this.size / 12}px Arial`;
         ctx.fillStyle = this.colors.numbers;
         ctx.textAlign = 'center';
-        ctx.fillText(Math.round(this.speed), this.x, this.y + this.size/4);
-        ctx.font = `${this.size/15}px Arial`;
-        ctx.fillText('KNOTS', this.x, this.y + this.size/3);
+        ctx.fillText(Math.round(this.speed), this.x, this.y + this.size / 4);
+        ctx.font = `${this.size / 15}px Arial`;
+        ctx.fillText('KNOTS', this.x, this.y + this.size / 3);
     }
-    
+
     update(speed) {
         this.speed = Math.max(0, Math.min(this.maxSpeed, speed));
     }

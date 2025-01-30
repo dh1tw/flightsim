@@ -77,7 +77,6 @@ class AirspeedIndicator extends Instrument {
         
         // Draw the needle
         const angle = speedToAngle(this.speed);
-        const radius = this.size/2 - 20;
         
         // Create needle path
         const needlePath = new Path2D();

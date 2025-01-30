@@ -11,8 +11,8 @@ class Cockpit {
         this.ctx.fillStyle = '#2a2a2a';  // Dark gray for main panel
         this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
         
-        const margin = 20;
-        const windowHeight = this.canvas.height * 0.55 - (margin * 2);
+        const margin = 40;
+        const windowHeight = this.canvas.height * 0.6 - (margin * 2);
         
         // Create gradient for sky
         const skyGradient = this.ctx.createLinearGradient(
@@ -23,10 +23,10 @@ class Cockpit {
         skyGradient.addColorStop(1, '#87CEEB');    // Lighter blue at horizon
         
         // Draw windshield frame with depth effect
-        const frameWidth = 15;
-        const frameColor = '#404040';
-        const frameShadow = '#1a1a1a';
-        const frameHighlight = '#606060';
+        const frameWidth = 20;
+        const frameColor = '#303030';
+        const frameShadow = '#151515';
+        const frameHighlight = '#505050';
         
         // Function to draw frame segment with 3D effect
         const drawFrameSegment = (path, width) => {
@@ -144,14 +144,14 @@ class Cockpit {
 
     setupInstruments() {
         // Standard six-pack arrangement
-        const size = 160; // Smaller instrument size
-        const padding = 20; // Space between instruments
+        const size = 180; // Slightly larger instrument size
+        const padding = 30; // More space between instruments
         
         // Row 1 (top row)
         this.instruments.set('airspeed',
             new AirspeedIndicator(
-                200,
                 300,
+                400,
                 size
             )
         );

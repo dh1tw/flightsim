@@ -77,30 +77,74 @@ class AirspeedIndicator extends Instrument {
         
         // Draw the needle
         const angle = speedToAngle(this.speed);
-        ctx.strokeStyle = this.colors.needles;
-        ctx.fillStyle = this.colors.needles;
-        ctx.lineWidth = 3;
+        const radius = this.size/2 - 20;
         
+        // Create needle path
+        const needlePath = new Path2D();
+        const needleLength = radius - 10;
+        const needleWidth = 4;
+        const blackPartLength = needleLength * 0.3;
+
+        // Calculate points for needle shape
+        const tip = {
+            x: Math.cos(angle) * needleLength,
+            y: Math.sin(angle) * needleLength
+        };
+        const leftBase = {
+            x: Math.cos(angle - Math.PI/2) * needleWidth,
+            y: Math.sin(angle - Math.PI/2) * needleWidth
+        };
+        const rightBase = {
+            x: Math.cos(angle + Math.PI/2) * needleWidth,
+            y: Math.sin(angle + Math.PI/2) * needleWidth
+        };
+        const blackTip = {
+            x: Math.cos(angle) * blackPartLength,
+            y: Math.sin(angle) * blackPartLength
+        };
+
         // Draw needle shadow
         ctx.save();
         ctx.shadowColor = 'rgba(0,0,0,0.5)';
         ctx.shadowBlur = 5;
         ctx.shadowOffsetX = 2;
         ctx.shadowOffsetY = 2;
-        
+
+        // Draw white border
         ctx.beginPath();
-        ctx.moveTo(0, 0);
-        ctx.lineTo(
-            Math.cos(angle) * (radius - 10),
-            Math.sin(angle) * (radius - 10)
-        );
+        ctx.moveTo(leftBase.x, leftBase.y);
+        ctx.lineTo(tip.x, tip.y);
+        ctx.lineTo(rightBase.x, rightBase.y);
+        ctx.closePath();
+        ctx.strokeStyle = 'white';
+        ctx.lineWidth = 2;
         ctx.stroke();
+
+        // Fill white part
+        ctx.fillStyle = 'white';
+        ctx.fill();
+
+        // Draw black part
+        ctx.beginPath();
+        ctx.moveTo(leftBase.x, leftBase.y);
+        ctx.lineTo(blackTip.x, blackTip.y);
+        ctx.lineTo(rightBase.x, rightBase.y);
+        ctx.closePath();
+        ctx.fillStyle = 'black';
+        ctx.fill();
+        ctx.strokeStyle = 'white';
+        ctx.stroke();
+
         ctx.restore();
-        
+
         // Draw center cap
         ctx.beginPath();
-        ctx.arc(0, 0, 5, 0, Math.PI * 2);
+        ctx.arc(0, 0, 8, 0, Math.PI * 2);
+        ctx.fillStyle = 'black';
         ctx.fill();
+        ctx.strokeStyle = 'white';
+        ctx.lineWidth = 2;
+        ctx.stroke();
         
         ctx.restore();
         

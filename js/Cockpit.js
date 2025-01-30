@@ -7,11 +7,20 @@ class Cockpit {
     }
 
     setupInstruments() {
-        // Ajouter un altimètre au centre pour commencer
+        // Add altimeter
         this.instruments.set('altimeter', 
             new Altimeter(
-                this.canvas.width/2, 
+                this.canvas.width/2 + 150, 
                 this.canvas.height/2, 
+                200
+            )
+        );
+        
+        // Add airspeed indicator
+        this.instruments.set('airspeed',
+            new AirspeedIndicator(
+                this.canvas.width/2 - 150,
+                this.canvas.height/2,
                 200
             )
         );

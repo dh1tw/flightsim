@@ -5,7 +5,8 @@ const cockpit = new Cockpit('cockpit');
 function animate() {
     // Simuler des données de vol
     const flightData = {
-        altimeter: Math.random() * 10000
+        altimeter: Math.random() * 10000,
+        airspeed: Math.random() * 300
     };
     
     // Mettre à jour et redessiner

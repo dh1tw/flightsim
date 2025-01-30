@@ -7,37 +7,57 @@ class Cockpit {
     }
 
     setupInstruments() {
-        // Add altimeter
-        this.instruments.set('altimeter', 
-            new Altimeter(
-                this.canvas.width/2 + 150, 
-                this.canvas.height/2, 
-                200
+        // Standard six-pack arrangement
+        const size = 160; // Smaller instrument size
+        const padding = 20; // Space between instruments
+        
+        // Row 1 (top row)
+        this.instruments.set('airspeed',
+            new AirspeedIndicator(
+                200,
+                300,
+                size
             )
         );
         
-        // Add airspeed indicator
-        this.instruments.set('airspeed',
-            new AirspeedIndicator(
-                this.canvas.width/2 - 150,
-                this.canvas.height/2,
-                200
-            )
-        );
-
         this.instruments.set('attitude',
             new AttitudeIndicator(
-                this.canvas.width/2,
-                this.canvas.height/2,
-                200
+                200 + size + padding,
+                300,
+                size
+            )
+        );
+        
+        this.instruments.set('altimeter',
+            new Altimeter(
+                200 + (size + padding) * 2,
+                300,
+                size
             )
         );
 
+        // Row 2 (bottom row)
         this.instruments.set('turn',
             new TurnCoordinator(
-                this.canvas.width/2 - 150,
-                this.canvas.height/2 - 220,
-                200
+                200,
+                300 + size + padding,
+                size
+            )
+        );
+
+        this.instruments.set('heading',
+            new HeadingIndicator(
+                200 + size + padding,
+                300 + size + padding,
+                size
+            )
+        );
+
+        this.instruments.set('vsi',
+            new VerticalSpeedIndicator(
+                200 + (size + padding) * 2,
+                300 + size + padding,
+                size
             )
         );
     }

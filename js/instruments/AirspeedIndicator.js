@@ -47,7 +47,7 @@ class AirspeedIndicator extends Instrument {
         ctx.textBaseline = 'middle';
         ctx.font = `${this.size / 15}px Arial`;
 
-        for (let speed = 0; speed <= this.maxSpeed; speed += 20) {
+        for (let speed = 40; speed <= this.maxSpeed; speed += 20) {
             const angle = speedToAngle(speed);
             const isMainGraduation = speed % 100 === 0;
             const gradLength = isMainGraduation ? 15 : 10;

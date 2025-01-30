@@ -24,6 +24,22 @@ class Cockpit {
                 200
             )
         );
+
+        this.instruments.set('attitude',
+            new AttitudeIndicator(
+                this.canvas.width/2,
+                this.canvas.height/2,
+                200
+            )
+        );
+
+        this.instruments.set('turn',
+            new TurnCoordinator(
+                this.canvas.width/2 - 150,
+                this.canvas.height/2 - 220,
+                200
+            )
+        );
     }
 
     draw() {

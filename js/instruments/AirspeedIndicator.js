@@ -19,7 +19,7 @@ class AirspeedIndicator extends Instrument {
 
         // Convert speeds to angles (0 at bottom, clockwise)
         const speedToAngle = (speed) => {
-            return ((speed / this.maxSpeed) * 300 + 120) * Math.PI / 180;
+            return ((speed / this.maxSpeed) * 300 - 90) * Math.PI / 180;
         };
 
         // Draw green arc (normal operating range)

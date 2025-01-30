@@ -23,7 +23,7 @@ class Cockpit {
         skyGradient.addColorStop(1, '#87CEEB');    // Lighter blue at horizon
         
         // Draw windshield frame with depth effect
-        const frameWidth = 20;
+        const frameWidth = 5;
         const frameColor = '#303030';
         const frameShadow = '#151515';
         const frameHighlight = '#505050';
@@ -143,31 +143,38 @@ class Cockpit {
     }
 
     setupInstruments() {
-        // Standard six-pack arrangement
-        const size = 180; // Slightly larger instrument size
-        const padding = 30; // More space between instruments
+        // Calculate positions based on canvas size
+        const size = 150; // Instrument size
+        const padding = 20; // Space between instruments
+        
+        // Start Y position at 55% of canvas height
+        const startY = this.canvas.height * 0.55;
+        
+        // Calculate starting X to center the instruments
+        const totalWidth = (size * 3) + (padding * 2);
+        const startX = (this.canvas.width - totalWidth) / 2;
         
         // Row 1 (top row)
         this.instruments.set('airspeed',
             new AirspeedIndicator(
-                300,
-                400,
+                startX,
+                startY,
                 size
             )
         );
         
         this.instruments.set('attitude',
             new AttitudeIndicator(
-                200 + size + padding,
-                300,
+                startX + size + padding,
+                startY,
                 size
             )
         );
         
         this.instruments.set('altimeter',
             new Altimeter(
-                200 + (size + padding) * 2,
-                300,
+                startX + (size + padding) * 2,
+                startY,
                 size
             )
         );
@@ -175,24 +182,24 @@ class Cockpit {
         // Row 2 (bottom row)
         this.instruments.set('turn',
             new TurnCoordinator(
-                200,
-                300 + size + padding,
+                startX,
+                startY + size + padding,
                 size
             )
         );
 
         this.instruments.set('heading',
             new HeadingIndicator(
-                200 + size + padding,
-                300 + size + padding,
+                startX + size + padding,
+                startY + size + padding,
                 size
             )
         );
 
         this.instruments.set('vsi',
             new VerticalSpeedIndicator(
-                200 + (size + padding) * 2,
-                300 + size + padding,
+                startX + (size + padding) * 2,
+                startY + size + padding,
                 size
             )
         );

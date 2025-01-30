@@ -2,7 +2,7 @@ class AirspeedIndicator extends Instrument {
     constructor(x, y, size) {
         super(x, y, size);
         this.speed = 0;
-        this.maxSpeed = 400;
+        this.maxSpeed = 500;
         this.greenArc = { min: 60, max: 240 };
         this.yellowArc = { min: 240, max: 350 };
     }
@@ -151,9 +151,9 @@ class AirspeedIndicator extends Instrument {
         ctx.font = `${this.size / 12}px Arial`;
         ctx.fillStyle = this.colors.numbers;
         ctx.textAlign = 'center';
-        ctx.fillText(Math.round(this.speed), this.x, this.y - this.size/4);
+        ctx.fillText(Math.round(this.speed), this.x, this.y - this.size / 4);
         ctx.font = `${this.size / 15}px Arial`;
-        ctx.fillText('KNOTS', this.x, this.y - this.size/6);
+        ctx.fillText('KNOTS', this.x, this.y - this.size / 6);
     }
 
     update(speed) {

@@ -6,65 +6,119 @@ class TurnCoordinator extends Instrument {
     }
     
     draw(ctx) {
-        // Draw main dial
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size/2, 0, Math.PI * 2);
-        ctx.stroke();
+        // Draw common background first
+        this.drawInstrumentBackground(ctx);
         
-        // Draw turn rate marks (standard rate turn is 3 degrees/second)
-        const marks = [[-3, 'L'], [0, ''], [3, 'R']];
-        ctx.font = `${this.size/15}px Arial`;
-        ctx.textAlign = 'center';
-        
-        marks.forEach(([rate, label]) => {
-            const angle = rate * Math.PI/12;  // 30 degrees for standard rate
-            const x = this.x + Math.sin(angle) * (this.size/2 - 20);
-            const y = this.y - Math.cos(angle) * (this.size/2 - 20);
-            
-            ctx.beginPath();
-            ctx.moveTo(
-                this.x + Math.sin(angle) * (this.size/2 - 25),
-                this.y - Math.cos(angle) * (this.size/2 - 25)
-            );
-            ctx.lineTo(
-                this.x + Math.sin(angle) * (this.size/2 - 15),
-                this.y - Math.cos(angle) * (this.size/2 - 15)
-            );
-            ctx.stroke();
-            
-            ctx.fillText(label, x, y - 15);
-        });
-        
-        // Draw airplane symbol
-        const angle = this.turnRate * Math.PI/12;
         ctx.save();
         ctx.translate(this.x, this.y);
-        ctx.rotate(angle);
         
+        const radius = this.size/2 - 5;
+        
+        // Draw main markings
+        ctx.strokeStyle = this.colors.markings;
+        ctx.fillStyle = this.colors.markings;
+        ctx.lineWidth = 2;
+        
+        // Draw "2 MIN TURN" text at top
+        ctx.font = `${this.size/15}px Arial`;
+        ctx.textAlign = 'center';
+        ctx.fillText("2 MIN TURN", 0, -radius/2);
+        
+        // Draw turn rate marks and labels
+        const marks = [
+            {angle: -30, label: 'L'},
+            {angle: 0, label: ''},
+            {angle: 30, label: 'R'}
+        ];
+        
+        marks.forEach(({angle, label}) => {
+            ctx.save();
+            ctx.rotate(angle * Math.PI/180);
+            
+            // Draw mark
+            ctx.beginPath();
+            ctx.moveTo(0, -radius + 15);
+            ctx.lineTo(0, -radius + 30);
+            ctx.stroke();
+            
+            // Draw label
+            if (label) {
+                ctx.save();
+                ctx.translate(0, -radius + 45);
+                ctx.rotate(-angle * Math.PI/180);  // Keep text upright
+                ctx.fillText(label, 0, 0);
+                ctx.restore();
+            }
+            
+            ctx.restore();
+        });
+        
+        // Draw miniature aircraft
+        ctx.save();
+        ctx.rotate(this.turnRate * Math.PI/12);  // Scale turn rate to rotation
+        
+        // Draw aircraft symbol
+        ctx.strokeStyle = this.colors.markings;
+        ctx.lineWidth = 2;
         ctx.beginPath();
+        
+        // Wings
         ctx.moveTo(-20, 0);
         ctx.lineTo(20, 0);
-        ctx.moveTo(0, -5);
-        ctx.lineTo(0, 5);
-        ctx.moveTo(-10, -5);
-        ctx.lineTo(-10, 5);
-        ctx.moveTo(10, -5);
-        ctx.lineTo(10, 5);
+        
+        // Fuselage
+        ctx.moveTo(0, -15);
+        ctx.lineTo(0, 15);
+        
+        // Stabilizers
+        ctx.moveTo(-10, 10);
+        ctx.lineTo(10, 10);
+        
+        ctx.stroke();
+        ctx.restore();
+        
+        // Draw slip/skid indicator housing
+        const ballContainerWidth = 50;
+        const ballContainerHeight = 20;
+        
+        ctx.save();
+        ctx.translate(0, radius/2);
+        
+        // Draw curved ball race
+        ctx.beginPath();
+        ctx.arc(0, 0, ballContainerWidth/2, 0, Math.PI, true);
+        ctx.strokeStyle = this.colors.markings;
+        ctx.lineWidth = ballContainerHeight;
+        ctx.stroke();
+        
+        // Draw center marks
+        ctx.strokeStyle = this.colors.markings;
+        ctx.lineWidth = 2;
+        [-10, 0, 10].forEach(x => {
+            ctx.beginPath();
+            ctx.moveTo(x, -ballContainerHeight/2);
+            ctx.lineTo(x, ballContainerHeight/2);
+            ctx.stroke();
+        });
+        
+        // Draw ball
+        const ballPosition = this.slipSkid * 20;
+        ctx.beginPath();
+        ctx.arc(ballPosition, 0, 8, 0, Math.PI * 2);
+        ctx.fillStyle = 'black';
+        ctx.fill();
+        ctx.strokeStyle = this.colors.markings;
+        ctx.lineWidth = 1;
         ctx.stroke();
         
         ctx.restore();
         
-        // Draw slip/skid ball
-        const ballX = this.x + this.slipSkid * 20;
-        ctx.beginPath();
-        ctx.arc(ballX, this.y + this.size/4, 5, 0, Math.PI * 2);
-        ctx.fill();
+        // Draw "NO PITCH INFORMATION" text at bottom
+        ctx.font = `${this.size/18}px Arial`;
+        ctx.fillStyle = this.colors.markings;
+        ctx.fillText("NO PITCH INFORMATION", 0, radius * 0.8);
         
-        // Draw ball container
-        ctx.beginPath();
-        ctx.moveTo(this.x - 25, this.y + this.size/4);
-        ctx.lineTo(this.x + 25, this.y + this.size/4);
-        ctx.stroke();
+        ctx.restore();
     }
     
     update(data) {

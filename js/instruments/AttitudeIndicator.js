@@ -52,9 +52,9 @@ class AttitudeIndicator extends Instrument {
                 
                 // Add numbers for 20° marks
                 ctx.textAlign = 'left';
-                ctx.fillText('20', width/2 + 5, y);
+                ctx.fillText(Math.abs(i).toString(), width/2 + 5, y);
                 ctx.textAlign = 'right';
-                ctx.fillText('20', -width/2 - 5, y);
+                ctx.fillText(Math.abs(i).toString(), -width/2 - 5, y);
                 
             } else if (i % 10 === 0) {  // 10° marks
                 // Longer width for higher angles
@@ -63,9 +63,9 @@ class AttitudeIndicator extends Instrument {
                 
                 // Add numbers for 10° marks
                 ctx.textAlign = 'left';
-                ctx.fillText('10', width/2 + 5, y);
+                ctx.fillText(Math.abs(i).toString(), width/2 + 5, y);
                 ctx.textAlign = 'right';
-                ctx.fillText('10', -width/2 - 5, y);
+                ctx.fillText(Math.abs(i).toString(), -width/2 - 5, y);
                 
             } else {  // 15° and -5° marks
                 width = this.size / 6;  // Shorter lines

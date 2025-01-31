@@ -46,6 +46,60 @@ class AttitudeIndicator extends Instrument {
             ctx.lineTo(width/2, y);
             ctx.stroke();
         }
+
+        // Draw roll angle reference marks
+        ctx.strokeStyle = 'white';
+        ctx.lineWidth = 2;
+        const rollMarks = [
+            -60, -45, -30, -20, -10,   // Left side marks
+            0,                         // Center mark
+            10, 20, 30, 45, 60        // Right side marks
+        ];
+
+        rollMarks.forEach(angle => {
+            ctx.save();
+            ctx.rotate(angle * Math.PI / 180);
+            
+            // Draw different sizes based on angle
+            let length = 10;
+            if (Math.abs(angle) === 30 || Math.abs(angle) === 60) length = 15;
+            if (angle === 0) length = 20;  // Longer mark for level
+            
+            ctx.beginPath();
+            ctx.moveTo(0, -this.size/2 + 5);
+            ctx.lineTo(0, -this.size/2 + 5 + length);
+            ctx.stroke();
+            
+            // Add angle numbers for 10, 20, 30, 45, 60
+            if (angle !== 0 && angle % 10 === 0) {
+                ctx.save();
+                ctx.translate(0, -this.size/2 + 25);
+                ctx.rotate(-angle * Math.PI / 180);  // Keep text upright
+                ctx.fillStyle = 'white';
+                ctx.textAlign = 'center';
+                ctx.fillText(Math.abs(angle).toString(), 0, 0);
+                ctx.restore();
+            }
+            
+            ctx.restore();
+        });
+
+        // Draw pitch reference lines on the sides
+        ctx.strokeStyle = 'white';
+        ctx.lineWidth = 2;
+        const sideLength = 40;
+
+        // Left reference line
+        ctx.beginPath();
+        ctx.moveTo(-this.size/3, 0);
+        ctx.lineTo(-this.size/3 + sideLength, 0);
+        ctx.stroke();
+
+        // Right reference line
+        ctx.beginPath();
+        ctx.moveTo(this.size/3 - sideLength, 0);
+        ctx.lineTo(this.size/3, 0);
+        ctx.stroke();
         
         ctx.restore();
         

@@ -8,6 +8,13 @@ class AttitudeIndicator extends Instrument {
     draw(ctx) {
         ctx.save();
         
+        // Draw the instrument border
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size/2, 0, Math.PI * 2);
+        ctx.strokeStyle = this.colors.case;
+        ctx.lineWidth = 2;
+        ctx.stroke();
+        
         // Clip to circular instrument area
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size/2, 0, Math.PI * 2);

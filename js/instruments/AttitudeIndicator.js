@@ -37,48 +37,56 @@ class AttitudeIndicator extends Instrument {
 
         // Draw pitch lines
         ctx.strokeStyle = 'white';
+        ctx.fillStyle = 'white';
+        ctx.textAlign = 'center';
+        ctx.font = `${this.size/20}px Arial`;
+
+        // Draw pitch lines from -30 to +30 degrees
         for (let i = -30; i <= 30; i += 5) {
-            // Skip 5 degree positive mark
+            // Skip +5 degree mark
             if (i === 5) continue;
             
             const y = -i * this.size / 180 + pitchOffset;
             let width;
             
-            // Set line width and length based on angle
             if (i % 20 === 0) {  // 20° marks
-                // Longer width for higher angles
-                width = this.size / 2 + (Math.abs(i) * this.size / 360);
+                width = this.size * 0.6 + (Math.abs(i) * this.size / 180); // Longer for higher angles
                 ctx.lineWidth = 2;
                 
-                // Add numbers for 20° marks (but not for 0°)
+                // Add numbers on both sides (except for 0°)
                 if (i !== 0) {
-                    ctx.textAlign = 'left';
-                    ctx.fillText(Math.abs(i).toString(), width/2 + 5, y);
-                    ctx.textAlign = 'right';
-                    ctx.fillText(Math.abs(i).toString(), -width/2 - 5, y);
+                    ctx.fillText(Math.abs(i).toString(), -width/2 - 15, y);
+                    ctx.fillText(Math.abs(i).toString(), width/2 + 15, y);
                 }
                 
             } else if (i % 10 === 0) {  // 10° marks
-                // Longer width for higher angles
-                width = this.size / 3 + (Math.abs(i) * this.size / 360);
+                width = this.size * 0.4 + (Math.abs(i) * this.size / 180); // Longer for higher angles
                 ctx.lineWidth = 2;
                 
-                // Add numbers for 10° marks (but not for 0°)
+                // Add numbers on both sides (except for 0°)
                 if (i !== 0) {
-                    ctx.textAlign = 'left';
-                    ctx.fillText(Math.abs(i).toString(), width/2 + 5, y);
-                    ctx.textAlign = 'right';
-                    ctx.fillText(Math.abs(i).toString(), -width/2 - 5, y);
+                    ctx.fillText(Math.abs(i).toString(), -width/2 - 15, y);
+                    ctx.fillText(Math.abs(i).toString(), width/2 + 15, y);
                 }
                 
             } else {  // 15° and -5° marks
-                width = this.size / 6;  // Shorter lines
+                width = this.size * 0.2;  // Shorter lines
                 ctx.lineWidth = 4;  // Thicker lines
             }
 
+            // Draw the line with a gap in the middle for better readability
+            const gapWidth = this.size * 0.1; // Size of the gap in the middle
+            
+            // Draw left half
             ctx.beginPath();
-            ctx.moveTo(-width / 2, y);
-            ctx.lineTo(width / 2, y);
+            ctx.moveTo(-width/2, y);
+            ctx.lineTo(-gapWidth/2, y);
+            ctx.stroke();
+            
+            // Draw right half
+            ctx.beginPath();
+            ctx.moveTo(gapWidth/2, y);
+            ctx.lineTo(width/2, y);
             ctx.stroke();
         }
 

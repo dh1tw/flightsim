@@ -62,11 +62,11 @@ class AttitudeIndicator extends Instrument {
             } else if (i % 10 === 0) {  // 10° marks
                 width = this.size * 0.28 + (Math.abs(i) * this.size / 180); // Longer for higher angles (reduced from 0.4)
                 ctx.lineWidth = 2;
-                
+    
                 // Add numbers on both sides (except for 0°)
                 if (i !== 0) {
-                    ctx.fillText(Math.abs(i).toString(), -width/2 - 15, y);
-                    ctx.fillText(Math.abs(i).toString(), width/2 + 15, y);
+                    ctx.fillText(Math.abs(i).toString(), -width/2 - 5, y);
+                    ctx.fillText(Math.abs(i).toString(), width/2 + 5, y);
                 }
                 
             } else {  // 15° and -5° marks

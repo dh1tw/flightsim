@@ -50,7 +50,7 @@ class AttitudeIndicator extends Instrument {
             let width;
             
             if (i % 20 === 0) {  // 20° marks
-                width = this.size * 0.42 + (Math.abs(i) * this.size / 180); // Longer for higher angles (reduced from 0.6)
+                width = this.size * 0.336 + (Math.abs(i) * this.size / 180); // Reduced by 20% from 0.42
                 ctx.lineWidth = 2;
                 
                 // Add numbers on both sides (except for 0°)

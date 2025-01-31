@@ -4,7 +4,7 @@ class AirspeedIndicator extends Instrument {
         this.speed = 0;
         this.maxSpeed = 500;
         this.greenArc = { min: 60, max: 240 };
-        this.yellowArc = { min: 240, max: 350 };
+        this.yellowArc = { min: 240, max: 410 };
     }
 
     draw(ctx) {
@@ -19,7 +19,7 @@ class AirspeedIndicator extends Instrument {
 
         // Convert speeds to angles (0 at bottom, clockwise)
         const speedToAngle = (speed) => {
-            return ((speed / this.maxSpeed) * 300 - 90) * Math.PI / 180;
+            return ((speed / this.maxSpeed) * 330 - 90) * Math.PI / 180;
         };
 
         // Draw green arc (normal operating range)

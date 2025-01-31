@@ -79,7 +79,7 @@ class HeadingIndicator extends Instrument {
         // Aircraft shape (viewed from above)
         ctx.beginPath();
         // Nose
-        ctx.moveTo(0, -35);
+        ctx.moveTo(0, -50);
         // Right wing (straight, transport style)
         ctx.lineTo(15, -20);  // Wing root
         ctx.lineTo(60, -15);  // Wing tip

@@ -50,7 +50,7 @@ class AttitudeIndicator extends Instrument {
             let width;
             
             if (i % 20 === 0) {  // 20° marks
-                width = this.size * 0.6 + (Math.abs(i) * this.size / 180); // Longer for higher angles
+                width = this.size * 0.42 + (Math.abs(i) * this.size / 180); // Longer for higher angles (reduced from 0.6)
                 ctx.lineWidth = 2;
                 
                 // Add numbers on both sides (except for 0°)
@@ -60,7 +60,7 @@ class AttitudeIndicator extends Instrument {
                 }
                 
             } else if (i % 10 === 0) {  // 10° marks
-                width = this.size * 0.4 + (Math.abs(i) * this.size / 180); // Longer for higher angles
+                width = this.size * 0.28 + (Math.abs(i) * this.size / 180); // Longer for higher angles (reduced from 0.4)
                 ctx.lineWidth = 2;
                 
                 // Add numbers on both sides (except for 0°)
@@ -70,7 +70,7 @@ class AttitudeIndicator extends Instrument {
                 }
                 
             } else {  // 15° and -5° marks
-                width = this.size * 0.2;  // Shorter lines
+                width = this.size * 0.14;  // Shorter lines (reduced from 0.2)
                 ctx.lineWidth = 4;  // Thicker lines
             }
 

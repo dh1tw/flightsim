@@ -127,6 +127,15 @@ class AttitudeIndicator extends Instrument {
             ctx.restore();
         });
 
+        // Draw inner circle at roll indicator ends
+        ctx.beginPath();
+        ctx.arc(0, 0, this.size/2 - 25, 0, Math.PI * 2);  // Position where roll marks end
+        ctx.fillStyle = 'black';
+        ctx.fill();
+        ctx.strokeStyle = '#7EC0EE';  // Light blue
+        ctx.lineWidth = 1;
+        ctx.stroke();
+
         // Draw pitch reference lines on the sides
         ctx.strokeStyle = 'white';
         ctx.lineWidth = 2;

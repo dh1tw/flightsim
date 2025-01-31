@@ -3,7 +3,10 @@ const cockpit = new Cockpit('cockpit');
 
 // Flight data state
 let flightState = {
-    altimeter: 5000,
+    altimeter: {
+        altitude: 5000,
+        pressure: 29.92
+    },
     airspeed: 120,
     vsi: 0,
     heading: 0,

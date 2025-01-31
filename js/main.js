@@ -20,7 +20,10 @@ let flightState = {
 
 // Target values for smooth transitions
 let targetState = {
-    altimeter: 5000,
+    altimeter: {
+        altitude: 5000,
+        pressure: 29.92
+    },
     airspeed: 120,
     vsi: 0,
     heading: 0,
@@ -35,7 +38,10 @@ let targetState = {
 // Update targets every 5 seconds
 setInterval(() => {
     targetState = {
-        altimeter: 3000 + Math.sin(Date.now() / 10000) * 2000,
+        altimeter: {
+            altitude: 3000 + Math.sin(Date.now() / 10000) * 2000,
+            pressure: 29.92 + Math.sin(Date.now() / 20000) * 0.1
+        },
         airspeed: 120 + Math.sin(Date.now() / 15000) * 40,
         vsi: Math.sin(Date.now() / 8000) * 1000,
         heading: (targetState.heading + 0.5) % 360,
@@ -57,7 +63,10 @@ function lerp(start, end, factor) {
 function animate() {
     // Smooth interpolation towards target values
     flightState = {
-        altimeter: lerp(flightState.altimeter, targetState.altimeter, 0.1),
+        altimeter: {
+            altitude: lerp(flightState.altimeter.altitude, targetState.altimeter.altitude, 0.1),
+            pressure: lerp(flightState.altimeter.pressure, targetState.altimeter.pressure, 0.1)
+        },
         airspeed: lerp(flightState.airspeed, targetState.airspeed, 0.1),
         vsi: lerp(flightState.vsi, targetState.vsi, 0.1),
         heading: lerp(flightState.heading, targetState.heading, 0.1),

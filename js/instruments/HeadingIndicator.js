@@ -76,19 +76,31 @@ class HeadingIndicator extends Instrument {
         ctx.fillStyle = 'red';
         ctx.lineWidth = 2;
 
-        // Aircraft body
+        // Aircraft shape (viewed from above)
         ctx.beginPath();
-        ctx.moveTo(0, -20);  // Nose
-        ctx.lineTo(-15, 15); // Left wing
-        ctx.lineTo(0, 10);   // Fuselage indent
-        ctx.lineTo(15, 15);  // Right wing
+        // Nose
+        ctx.moveTo(0, -15);
+        // Right wing
+        ctx.lineTo(25, 5);
+        // Right stabilizer
+        ctx.lineTo(10, 15);
+        // Fuselage right
+        ctx.lineTo(5, 15);
+        // Tail
+        ctx.lineTo(0, 20);
+        // Fuselage left
+        ctx.lineTo(-5, 15);
+        // Left stabilizer
+        ctx.lineTo(-10, 15);
+        // Left wing
+        ctx.lineTo(-25, 5);
+        // Back to nose
         ctx.closePath();
         ctx.fill();
 
-        // Aircraft tail
-        ctx.beginPath();
-        ctx.moveTo(-10, 15);
-        ctx.lineTo(10, 15);
+        // Add white outline for better contrast
+        ctx.strokeStyle = 'white';
+        ctx.lineWidth = 1;
         ctx.stroke();
 
         ctx.restore();

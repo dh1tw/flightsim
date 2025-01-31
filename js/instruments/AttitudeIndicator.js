@@ -37,18 +37,37 @@ class AttitudeIndicator extends Instrument {
 
         // Draw pitch lines
         ctx.strokeStyle = 'white';
-        for (let i = -30; i <= 30; i += 5) {  // Changed step to 5 degrees
+        for (let i = -30; i <= 30; i += 5) {
+            // Skip 5 degree positive mark
+            if (i === 5) continue;
+            
             const y = -i * this.size / 180 + pitchOffset;
             let width;
             
             // Set line width and length based on angle
             if (i % 20 === 0) {  // 20° marks
-                width = this.size / 2;  // Longest lines
+                // Longer width for higher angles
+                width = this.size / 2 + (Math.abs(i) * this.size / 360);
                 ctx.lineWidth = 2;
+                
+                // Add numbers for 20° marks
+                ctx.textAlign = 'left';
+                ctx.fillText('20', width/2 + 5, y);
+                ctx.textAlign = 'right';
+                ctx.fillText('20', -width/2 - 5, y);
+                
             } else if (i % 10 === 0) {  // 10° marks
-                width = this.size / 3;  // Medium length lines
+                // Longer width for higher angles
+                width = this.size / 3 + (Math.abs(i) * this.size / 360);
                 ctx.lineWidth = 2;
-            } else {  // 5° and 15° marks
+                
+                // Add numbers for 10° marks
+                ctx.textAlign = 'left';
+                ctx.fillText('10', width/2 + 5, y);
+                ctx.textAlign = 'right';
+                ctx.fillText('10', -width/2 - 5, y);
+                
+            } else {  // 15° and -5° marks
                 width = this.size / 6;  // Shorter lines
                 ctx.lineWidth = 4;  // Thicker lines
             }

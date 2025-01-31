@@ -116,9 +116,9 @@ class AttitudeIndicator extends Instrument {
 
         // Add yellow reference triangle at top center (0° mark)
         ctx.beginPath();
-        ctx.moveTo(this.x, this.y - this.size/2 + 5);  // Point at top
-        ctx.lineTo(this.x - 10, this.y - this.size/2 + 20); // Left point
-        ctx.lineTo(this.x + 10, this.y - this.size/2 + 20); // Right point
+        ctx.moveTo(this.x, this.y - this.size / 2 + 25);  // Point at top
+        ctx.lineTo(this.x - 10, this.y - this.size / 2 + 40); // Left point
+        ctx.lineTo(this.x + 10, this.y - this.size / 2 + 40); // Right point
         ctx.closePath();
         ctx.fillStyle = 'yellow';
         ctx.fill();

@@ -80,21 +80,28 @@ class HeadingIndicator extends Instrument {
         ctx.beginPath();
         // Nose
         ctx.moveTo(0, -35);
-        // Right wing
-        ctx.lineTo(45, 10);
+        // Right wing (straight, transport style)
+        ctx.lineTo(15, -20);  // Wing root
+        ctx.lineTo(60, -15);  // Wing tip
+        ctx.lineTo(60, 0);    // Wing trailing edge
+        ctx.lineTo(15, -5);   // Wing root trailing edge
+        // Right side of fuselage
+        ctx.lineTo(12, 25);
         // Right stabilizer
-        ctx.lineTo(20, 25);
-        // Fuselage right
-        ctx.lineTo(8, 25);
+        ctx.lineTo(30, 35);
+        ctx.lineTo(30, 45);
+        ctx.lineTo(8, 35);
         // Tail
-        ctx.lineTo(0, 35);
-        // Fuselage left
-        ctx.lineTo(-8, 25);
-        // Left stabilizer
-        ctx.lineTo(-20, 25);
-        // Left wing
-        ctx.lineTo(-45, 10);
-        // Back to nose
+        ctx.lineTo(0, 40);
+        // Left side (mirror of right side)
+        ctx.lineTo(-8, 35);
+        ctx.lineTo(-30, 45);
+        ctx.lineTo(-30, 35);
+        ctx.lineTo(-12, 25);
+        ctx.lineTo(-15, -5);
+        ctx.lineTo(-60, 0);
+        ctx.lineTo(-60, -15);
+        ctx.lineTo(-15, -20);
         ctx.closePath();
         ctx.fill();
 

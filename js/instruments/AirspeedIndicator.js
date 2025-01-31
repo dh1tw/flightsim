@@ -148,12 +148,12 @@ class AirspeedIndicator extends Instrument {
         ctx.restore();
 
         // Draw speed value and KNOTS text in upper part
-        ctx.font = `${this.size / 12}px Arial`;
-        ctx.fillStyle = this.colors.numbers;
-        ctx.textAlign = 'center';
-        ctx.fillText(Math.round(this.speed), this.x, this.y - this.size / 4);
-        ctx.font = `${this.size / 15}px Arial`;
-        ctx.fillText('KNOTS', this.x, this.y - this.size / 6);
+        // ctx.font = `${this.size / 12}px Arial`;
+        // ctx.fillStyle = this.colors.numbers;
+        // ctx.textAlign = 'center';
+        // ctx.fillText(Math.round(this.speed), this.x, this.y - this.size / 4);
+        // ctx.font = `${this.size / 15}px Arial`;
+        // ctx.fillText('KNOTS', this.x, this.y - this.size / 6);
     }
 
     update(speed) {

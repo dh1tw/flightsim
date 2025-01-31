@@ -73,7 +73,7 @@ class HeadingIndicator extends Instrument {
 
         // Draw aircraft symbol in center
         ctx.strokeStyle = 'red';
-        ctx.fillStyle = 'red';
+        ctx.fillStyle = 'none';
         ctx.lineWidth = 2;
 
         // Aircraft shape (viewed from above)
@@ -105,8 +105,8 @@ class HeadingIndicator extends Instrument {
         ctx.closePath();
         ctx.fill();
 
-        // Add white outline for better contrast
-        ctx.strokeStyle = 'white';
+        // Add red outline for better contrast
+        ctx.strokeStyle = 'red';
         ctx.lineWidth = 1;
         ctx.stroke();
 

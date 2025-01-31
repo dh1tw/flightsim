@@ -211,6 +211,15 @@ class Cockpit {
                 size
             )
         );
+
+        // Add radio to the right of the instruments
+        this.instruments.set('radio',
+            new Radio(
+                startX + (size + padding) * 3,
+                startY,  // Same Y as top row
+                size * 1.2  // Make it slightly wider
+            )
+        );
     }
 
     draw() {

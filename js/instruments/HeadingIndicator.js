@@ -13,96 +13,77 @@ class HeadingIndicator extends Instrument {
         
         const radius = this.size/2 - 20;
         
-        // Draw rotating compass card
-        ctx.rotate(-this.heading * Math.PI / 180);
-        
-        // Draw all degree marks
+        // Draw compass housing
+        ctx.fillStyle = '#2a2a2a';
+        ctx.beginPath();
+        ctx.roundRect(-radius, -radius/2, radius*2, radius, 10);
+        ctx.fill();
+        ctx.strokeStyle = '#404040';
         ctx.lineWidth = 2;
-        ctx.strokeStyle = this.colors.markings;
-        ctx.fillStyle = this.colors.numbers;
+        ctx.stroke();
+        
+        // Draw viewing window
+        ctx.beginPath();
+        ctx.roundRect(-radius/2, -radius/3, radius, radius/2, 5);
+        ctx.strokeStyle = '#505050';
+        ctx.stroke();
+        
+        // Create clipping region for card
+        ctx.save();
+        ctx.beginPath();
+        ctx.roundRect(-radius/2, -radius/3, radius, radius/2, 5);
+        ctx.clip();
+        
+        // Draw compass card
+        ctx.translate(-radius/2, -radius/6);
+        ctx.scale(-1, 1); // Mirror the numbers
+        ctx.rotate(this.heading * Math.PI / 180);
+        
+        // Draw numbers and marks
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
-        ctx.font = `${this.size/20}px Arial`;
+        ctx.font = `${this.size/15}px Arial`;
+        ctx.fillStyle = this.colors.numbers;
         
-        for(let i = 0; i < 360; i += 5) {
-            const angle = (i * Math.PI / 180);
-            const isCardinal = i % 90 === 0;
-            const isMajor = i % 30 === 0;
-            const length = isCardinal ? 20 : (isMajor ? 15 : 10);
+        for(let i = 0; i < 360; i += 30) {
+            const x = (i - this.heading) * radius/90;
             
+            // Draw number
+            let label = i === 0 ? 'N' :
+                       i === 90 ? 'E' :
+                       i === 180 ? 'S' :
+                       i === 270 ? 'W' :
+                       (i/10).toString();
+            
+            ctx.fillText(label, x, 0);
+            
+            // Draw graduation marks
             ctx.beginPath();
-            ctx.moveTo(
-                Math.sin(angle) * (radius - length),
-                -Math.cos(angle) * (radius - length)
-            );
-            ctx.lineTo(
-                Math.sin(angle) * radius,
-                -Math.cos(angle) * radius
-            );
+            ctx.moveTo(x, -radius/6);
+            ctx.lineTo(x, radius/6);
+            ctx.strokeStyle = this.colors.markings;
+            ctx.lineWidth = 1;
             ctx.stroke();
-            
-            // Draw numbers for every 30 degrees
-            if (isMajor) {
-                const textRadius = radius - 30;
-                const number = (i === 0) ? 'N' : 
-                             (i === 90) ? 'E' : 
-                             (i === 180) ? 'S' : 
-                             (i === 270) ? 'W' : 
-                             (i/10).toString();
-                
-                // Rotate text to be readable
-                ctx.save();
-                ctx.translate(
-                    Math.sin(angle) * textRadius,
-                    -Math.cos(angle) * textRadius
-                );
-                ctx.rotate(-angle + Math.PI/2);
-                ctx.fillText(number, 0, 0);
-                ctx.restore();
-            }
         }
         
         ctx.restore();
         
-        // Draw fixed aircraft symbol and lubber line
-        ctx.save();
-        ctx.translate(this.x, this.y);
-        
-        // Draw lubber line (triangle at top)
+        // Draw lubber line
         ctx.beginPath();
-        ctx.moveTo(0, -radius + 5);
-        ctx.lineTo(-10, -radius + 20);
-        ctx.lineTo(10, -radius + 20);
-        ctx.closePath();
-        ctx.fillStyle = 'red';
-        ctx.fill();
-        
-        // Draw miniature aircraft
-        ctx.strokeStyle = this.colors.markings;
+        ctx.moveTo(0, -radius/3);
+        ctx.lineTo(0, radius/6);
+        ctx.strokeStyle = 'red';
         ctx.lineWidth = 2;
-        ctx.beginPath();
-        // Aircraft body
-        ctx.moveTo(0, -10);
-        ctx.lineTo(0, 10);
-        // Wings
-        ctx.moveTo(-15, 0);
-        ctx.lineTo(15, 0);
-        // Tail
-        ctx.moveTo(-7, 10);
-        ctx.lineTo(7, 10);
         ctx.stroke();
         
-        ctx.restore();
+        // Draw liquid effect
+        const liquidGradient = ctx.createLinearGradient(0, -radius/3, 0, radius/6);
+        liquidGradient.addColorStop(0, 'rgba(255,255,255,0.1)');
+        liquidGradient.addColorStop(1, 'rgba(255,255,255,0)');
+        ctx.fillStyle = liquidGradient;
+        ctx.fillRect(-radius/2, -radius/3, radius, radius/2);
         
-        // Draw heading numbers in a digital display
-        ctx.font = `${this.size/12}px Arial`;
-        ctx.fillStyle = this.colors.numbers;
-        ctx.textAlign = 'center';
-        ctx.fillText(
-            Math.round(this.heading).toString().padStart(3, '0') + '°',
-            this.x,
-            this.y + radius/2
-        );
+        ctx.restore();
     }
     
     update(heading) {

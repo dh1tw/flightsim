@@ -55,8 +55,8 @@ class AttitudeIndicator extends Instrument {
                 
                 // Add numbers on both sides (except for 0°)
                 if (i !== 0) {
-                    ctx.fillText(Math.abs(i).toString(), -width/2 - 15, y);
-                    ctx.fillText(Math.abs(i).toString(), width/2 + 15, y);
+                    ctx.fillText(Math.abs(i).toString(), -width/2 - 5, y);
+                    ctx.fillText(Math.abs(i).toString(), width/2 + 5, y);
                 }
                 
             } else if (i % 10 === 0) {  // 10° marks

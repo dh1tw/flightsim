@@ -203,6 +203,15 @@ class Cockpit {
                 size
             )
         );
+
+        // Add magnetic compass next to heading indicator
+        this.instruments.set('magneticCompass',
+            new MagneticCompass(
+                startX + (size + padding) * 2,
+                startY + size + padding,
+                size
+            )
+        );
     }
 
     draw() {

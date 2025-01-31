@@ -10,6 +10,7 @@ let flightState = {
     airspeed: 120,
     vsi: 0,
     heading: 0,
+    magneticCompass: 0,
     attitude: {
         pitch: 0,
         roll: 0
@@ -27,6 +28,7 @@ let targetState = {
     airspeed: 120,
     vsi: 0,
     heading: 0,
+    magneticCompass: 0,
     attitude: {
         pitch: 0,
         roll: 0
@@ -45,6 +47,7 @@ setInterval(() => {
         airspeed: 120 + Math.sin(Date.now() / 15000) * 40,
         vsi: Math.sin(Date.now() / 8000) * 1000,
         heading: (targetState.heading + 0.5) % 360,
+        magneticCompass: targetState.heading, // Use same heading as directional gyro
         attitude: {
             pitch: Math.sin(Date.now() / 12000) * 10,
             roll: Math.sin(Date.now() / 10000) * 15

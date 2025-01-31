@@ -110,6 +110,25 @@ class HeadingIndicator extends Instrument {
         ctx.lineWidth = 1;
         ctx.stroke();
 
+        // Draw static triangular markers at cardinal and intercardinal points
+        const triangleAngles = [45, 90, 135, 180, 225, 270, 315];
+        ctx.fillStyle = 'white';
+
+        triangleAngles.forEach(angle => {
+            ctx.save();
+            ctx.rotate(angle * Math.PI / 180);
+            
+            // Draw triangle pointing inward
+            ctx.beginPath();
+            ctx.moveTo(0, -radius);  // Point at the edge
+            ctx.lineTo(-6, -radius + 10);  // Left point
+            ctx.lineTo(6, -radius + 10);   // Right point
+            ctx.closePath();
+            ctx.fill();
+            
+            ctx.restore();
+        });
+
         ctx.restore();
     }
 

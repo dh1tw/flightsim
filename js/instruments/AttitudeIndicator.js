@@ -41,8 +41,8 @@ class AttitudeIndicator extends Instrument {
         ctx.textAlign = 'center';
         ctx.font = `${this.size/20}px Arial`;
 
-        // Draw pitch lines from -30 to +30 degrees
-        for (let i = -30; i <= 30; i += 5) {
+        // Draw pitch lines from -20 to +20 degrees
+        for (let i = -20; i <= 20; i += 5) {
             // Skip +5 degree mark
             if (i === 5) continue;
             

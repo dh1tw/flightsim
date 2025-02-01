@@ -203,8 +203,8 @@ class Radio extends Instrument {
 
         // Draw arc with arrowheads for second knob
         const arcRadius = knob2Radius + 8;  // Slightly larger than knob
-        const startAngle = -Math.PI/4;  // -45 degrees
-        const endAngle = Math.PI/4;     // +45 degrees
+        const startAngle = -Math.PI / 5;  // -45 degrees
+        const endAngle = Math.PI / 5;     // +45 degrees
 
         // Draw the arc
         ctx.beginPath();
@@ -214,11 +214,11 @@ class Radio extends Instrument {
         ctx.stroke();
 
         // Helper function to draw arrowhead
-        const drawArrowhead = (x, y, angle, sign) => {
+        const drawArrowhead = (x, y, angle) => {
             ctx.save();
             ctx.translate(x, y);
             ctx.rotate(angle);
-            
+
             // Draw arrowhead
             ctx.beginPath();
             ctx.moveTo(0, 0);
@@ -227,26 +227,19 @@ class Radio extends Instrument {
             ctx.closePath();
             ctx.fillStyle = 'white';
             ctx.fill();
-            
-            // Add plus/minus sign
-            ctx.fillStyle = 'white';
-            ctx.font = '12px Arial';
-            ctx.textAlign = 'center';
-            ctx.textBaseline = 'middle';
-            ctx.fillText(sign, -12, 0);
-            
+
             ctx.restore();
         };
 
         // Draw upper arrowhead with plus sign
         const upperX = knob2CenterX + arcRadius * Math.cos(startAngle);
         const upperY = knob2CenterY + arcRadius * Math.sin(startAngle);
-        drawArrowhead(upperX, upperY, startAngle - Math.PI/2, '+');
+        drawArrowhead(upperX, upperY, startAngle - Math.PI / 2);
 
         // Draw lower arrowhead with minus sign
         const lowerX = knob2CenterX + arcRadius * Math.cos(endAngle);
         const lowerY = knob2CenterY + arcRadius * Math.sin(endAngle);
-        drawArrowhead(lowerX, lowerY, endAngle + Math.PI/2, '−');
+        drawArrowhead(lowerX, lowerY, endAngle + Math.PI / 2);
 
         // Draw control buttons
         const buttonY = this.y + this.height - 30; // Position buttons at bottom

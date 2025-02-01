@@ -34,7 +34,7 @@ class Radio extends Instrument {
             this.width - 2 * padding, displayHeight);
 
         // Draw frequencies
-        ctx.font = `${displayHeight * 0.8}px 'LCD', monospace`;
+        ctx.font = `${displayHeight * 0.8}px 'DS-Digital', monospace`;
         ctx.fillStyle = '#00ff00'; // Active freq in green
         ctx.textAlign = 'center';
         ctx.fillText(

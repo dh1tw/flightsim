@@ -65,7 +65,7 @@ class Radio extends Instrument {
         ctx.textAlign = 'left';
         ctx.fillText(
             this.standbyFreq.toFixed(2),
-            this.x + padding + 3 + activeFreqWidth + 10,  // 10px padding after active frequency
+            this.x + padding + 3 + activeFreqWidth + 30,  // 10px padding after active frequency
             yPos
         );
 

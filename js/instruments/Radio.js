@@ -95,6 +95,39 @@ class Radio extends Instrument {
             this.y + 2        // 2px from top
         );
 
+        // Draw control buttons
+        const buttonY = this.y + this.height - 30; // Position buttons at bottom
+        const buttonWidth = 40;
+        const buttonHeight = 20;
+        const buttonSpacing = 10;
+        let currentX = this.x + padding;
+
+        // Helper function to draw a button
+        const drawButton = (x, y, label) => {
+            // Button background
+            ctx.fillStyle = '#404040';
+            ctx.beginPath();
+            ctx.roundRect(x, y, buttonWidth, buttonHeight, 5);
+            ctx.fill();
+            
+            // Button border
+            ctx.strokeStyle = '#505050';
+            ctx.lineWidth = 1;
+            ctx.stroke();
+            
+            // Button label
+            ctx.fillStyle = 'white';
+            ctx.font = '10px Arial';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(label, x + buttonWidth/2, y + buttonHeight/2);
+        };
+
+        // Draw the buttons
+        ['TEST', 'SWAP', 'SET'].forEach(label => {
+            drawButton(currentX, buttonY, label);
+            currentX += buttonWidth + buttonSpacing;
+        });
     }
 
     update(data) {

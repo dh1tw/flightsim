@@ -24,9 +24,9 @@ class Radio extends Instrument {
         ctx.stroke();
 
         // Display areas
-        const fontSize = this.height * 0.3;  // Base font size for frequencies
+        const fontSize = this.height * 0.23;  // Base font size for frequencies
         ctx.font = `${fontSize}px 'DS-Digital', monospace`;
-        const displayHeight = fontSize + 6;  // Height is font size plus 3px margin top and bottom
+        const displayHeight = fontSize + 3;  // Height is font size plus 3px margin top and bottom
         const padding = 10;
         const displayWidth = (this.width - 3 * padding) / 2;  // Width for each frequency display
 
@@ -64,12 +64,12 @@ class Radio extends Instrument {
         );
         ctx.fillText(
             this.standbyFreq.toFixed(2),   // Standby COMM
-            this.x + padding + activeFreqWidth + 15,
+            this.x + padding + activeFreqWidth + 20,
             yPos
         );
 
         // NAV frequencies
-        const navActiveX = this.x + padding + activeFreqWidth + 15 + activeFreqWidth + 60; // Increased spacing
+        const navActiveX = this.x + padding + activeFreqWidth + 15 + activeFreqWidth + 55; // Increased spacing
         const navActiveFreqWidth = ctx.measureText(this.activeNavFreq.toFixed(2)).width;
 
         // Active NAV (left-aligned)
@@ -83,7 +83,7 @@ class Radio extends Instrument {
         // Standby NAV (to the right of active NAV)
         ctx.fillText(
             this.standbyNavFreq.toFixed(2),    // Standby NAV
-            navActiveX + navActiveFreqWidth + 10,  // 10px after active NAV
+            navActiveX + navActiveFreqWidth + 20,  // 10px after active NAV
             yPos
         );
 
@@ -104,9 +104,26 @@ class Radio extends Instrument {
         ctx.textAlign = 'right';
         ctx.fillText(
             'STBY',
-            this.x + this.width - padding - 3,  // Same alignment as standby frequency
+            this.x + 140,  // Same alignment as standby frequency
             this.y + 15 + displayHeight + 7  // 2px below the frequency display
         );
+
+        // NAV1 ACTIVE label (below active frequency)
+        ctx.textAlign = 'left';
+        ctx.fillText(
+            'NAV1',
+            this.x + 240,   // Same alignment as active frequency
+            this.y + 15 + displayHeight + 7  // 2px below the frequency display
+        );
+
+        // NAV1 STBY label (below standby frequency)
+        ctx.textAlign = 'right';
+        ctx.fillText(
+            'STBY',
+            this.x + 340,  // Same alignment as standby frequency
+            this.y + 15 + displayHeight + 7  // 2px below the frequency display
+        );
+
 
         ctx.font = '6px monospace';
         ctx.fillStyle = 'white';

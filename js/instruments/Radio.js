@@ -43,8 +43,8 @@ class Radio extends Instrument {
         ctx.textBaseline = 'middle';
         ctx.fillText(
             this.activeFreq.toFixed(3),
-            this.x + padding + displayWidth / 2,
-            this.y + 5 + displayHeight/2  // Align with new display position
+            this.x + displayWidth / 2,
+            this.y + 5 + displayHeight / 2  // Align with new display position
         );
 
         // Standby frequency (right)
@@ -52,7 +52,7 @@ class Radio extends Instrument {
         ctx.fillText(
             this.standbyFreq.toFixed(3),
             this.x + displayWidth + 2 * padding + displayWidth / 2,
-            this.y + 5 + displayHeight/2  // Align with new display position
+            this.y + 5 + displayHeight / 2  // Align with new display position
         );
     }
 

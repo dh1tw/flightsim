@@ -285,7 +285,8 @@ class Radio extends Instrument {
         const buttonHeight = 20;
         const buttonSpacing = 5;
         const startButtonX = knob2CenterX + knob2Radius + 20; // Position after second knob
-        let currentY = knobCenterY - buttonHeight - buttonSpacing; // Start above center aligned with knob
+        // let currentY = knobCenterY - buttonHeight / 3 - buttonSpacing / 3; // Start above center aligned with knob
+        let currentY = knobCenterY - buttonHeight * 2.3 - buttonSpacing * 2.3; // Start above center aligned with knob
 
         // Helper function to draw a button
         const drawButton = (x, y, label) => {
@@ -305,7 +306,7 @@ class Radio extends Instrument {
             ctx.font = '10px monospace';
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';
-            ctx.fillText(label, x + buttonWidth/2, y + buttonHeight/2);
+            ctx.fillText(label, x + buttonWidth / 2, y + buttonHeight / 2);
         };
 
         // Draw the buttons vertically

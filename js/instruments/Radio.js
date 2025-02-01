@@ -3,8 +3,10 @@ class Radio extends Instrument {
         super(x, y, width);
         this.width = width;
         this.height = height || width / 2;
-        this.activeFreq = 118.00;  // Active frequency
-        this.standbyFreq = 136.97; // Standby frequency
+        this.activeFreq = 118.00;      // Active COMM frequency
+        this.standbyFreq = 136.97;     // Standby COMM frequency
+        this.activeNavFreq = 108.00;   // Active NAV frequency
+        this.standbyNavFreq = 108.00;  // Standby NAV frequency
         this.isFlipping = false;   // Animation state for freq swap
         this.knobPosition = 0;  // Fixed to FULL position
     }
@@ -60,12 +62,31 @@ class Radio extends Instrument {
         // Get width of active frequency text
         const activeFreqWidth = ctx.measureText(this.activeFreq.toFixed(2)).width;
 
-        // Standby frequency (right of active frequency)
+        // Draw frequencies with proper spacing
+        // COMM frequencies (left side)
         ctx.fillStyle = '#a14318';
         ctx.textAlign = 'left';
         ctx.fillText(
-            this.standbyFreq.toFixed(2),
-            this.x + padding + 3 + activeFreqWidth + 30,  // 10px padding after active frequency
+            this.activeFreq.toFixed(2),    // Active COMM
+            this.x + padding + 3,
+            yPos
+        );
+        ctx.fillText(
+            this.standbyFreq.toFixed(2),   // Standby COMM
+            this.x + padding + 3 + activeFreqWidth + 10,
+            yPos
+        );
+
+        // NAV frequencies (right side, 60px gap after COMM frequencies)
+        const navStart = this.x + padding + 3 + activeFreqWidth + 10 + activeFreqWidth + 60;
+        ctx.fillText(
+            this.activeNavFreq.toFixed(2),    // Active NAV
+            navStart,
+            yPos
+        );
+        ctx.fillText(
+            this.standbyNavFreq.toFixed(2),    // Standby NAV
+            navStart + activeFreqWidth + 10,
             yPos
         );
 
@@ -285,6 +306,8 @@ class Radio extends Instrument {
     update(data) {
         if (data.activeFreq) this.activeFreq = data.activeFreq;
         if (data.standbyFreq) this.standbyFreq = data.standbyFreq;
+        if (data.activeNavFreq) this.activeNavFreq = data.activeNavFreq;
+        if (data.standbyNavFreq) this.standbyNavFreq = data.standbyNavFreq;
         if (data.knobPosition !== undefined) {
             this.knobPosition = data.knobPosition;
         }

@@ -44,25 +44,29 @@ class Radio extends Instrument {
         ctx.stroke();
 
         // Draw frequencies
-        ctx.font = `${fontSize}px 'DS-Digital', monospace`;  // Set font size before drawing text
+        ctx.font = `${fontSize}px 'DS-Digital', monospace`;
+        ctx.textBaseline = 'middle';
+        const yPos = this.y + 15 + displayHeight / 2;
 
         // Active frequency (left)
-        ctx.fillStyle = '#a14318';  // Active freq in green
-        ctx.textAlign = 'left';     // Align left
-        ctx.textBaseline = 'middle';
+        ctx.fillStyle = '#a14318';
+        ctx.textAlign = 'left';
         ctx.fillText(
-            this.activeFreq.toFixed(2),    // Changed from toFixed(3) to toFixed(2)
-            this.x + padding + 3,   // 3px from left border
-            this.y + 15 + displayHeight / 2  // Center in the new display height
+            this.activeFreq.toFixed(2),
+            this.x + padding + 3,
+            yPos
         );
 
-        // Standby frequency (right)
-        ctx.fillStyle = '#a14318';  // Fixed double # typo
-        ctx.textAlign = 'right';    // Align right
+        // Get width of active frequency text
+        const activeFreqWidth = ctx.measureText(this.activeFreq.toFixed(2)).width;
+
+        // Standby frequency (right of active frequency)
+        ctx.fillStyle = '#a14318';
+        ctx.textAlign = 'left';
         ctx.fillText(
-            this.standbyFreq.toFixed(2),   // Changed from toFixed(3) to toFixed(2)
-            this.x + this.width - padding - 3,  // 3px from right border
-            this.y + 15 + displayHeight / 2  // Center in the new display height
+            this.standbyFreq.toFixed(2),
+            this.x + padding + 3 + activeFreqWidth + 10,  // 10px padding after active frequency
+            yPos
         );
 
         // Add labels below frequencies

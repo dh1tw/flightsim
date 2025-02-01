@@ -21,7 +21,9 @@ class Radio extends Instrument {
         ctx.stroke();
 
         // Display areas
-        const displayHeight = this.height * 0.4;  // Make displays taller
+        const fontSize = this.height * 0.3;  // Base font size for frequencies
+        ctx.font = `${fontSize}px 'DS-Digital', monospace`;
+        const displayHeight = fontSize + 6;  // Height is font size plus 3px margin top and bottom
         const padding = 10;
         const displayWidth = (this.width - 3 * padding) / 2;  // Width for each frequency display
 
@@ -29,9 +31,9 @@ class Radio extends Instrument {
         ctx.beginPath();
         ctx.roundRect(
             this.x + padding,
-            this.y + 15,  // 5 pixels from top
+            this.y + 15,  // Keep same top position
             this.width - 2 * padding,
-            displayHeight,
+            displayHeight,  // Now using the new calculated height
             5  // 5px radius for rounded corners
         );
         ctx.fillStyle = '#000';
@@ -41,7 +43,7 @@ class Radio extends Instrument {
         ctx.stroke();
 
         // Draw frequencies
-        ctx.font = `${displayHeight * 0.6}px 'DS-Digital', monospace`;
+        ctx.font = `${fontSize}px 'DS-Digital', monospace`;  // Set font size before drawing text
 
         // Active frequency (left)
         ctx.fillStyle = '#00ff00';  // Active freq in green
@@ -50,7 +52,7 @@ class Radio extends Instrument {
         ctx.fillText(
             this.activeFreq.toFixed(3),
             this.x + padding + 3,   // 3px from left border
-            this.y + 5 + displayHeight / 2
+            this.y + 15 + displayHeight/2  // Center in the new display height
         );
 
         // Standby frequency (right)
@@ -59,7 +61,7 @@ class Radio extends Instrument {
         ctx.fillText(
             this.standbyFreq.toFixed(3),
             this.x + this.width - padding - 3,  // 3px from right border
-            this.y + 5 + displayHeight / 2
+            this.y + 15 + displayHeight/2  // Center in the new display height
         );
 
         ctx.font = '10px monospace';

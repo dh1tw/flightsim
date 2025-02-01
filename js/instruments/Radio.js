@@ -97,20 +97,20 @@ class Radio extends Instrument {
         );
 
         // Draw rotary knob positions labels
-        ctx.font = '10px Arial';
+        ctx.font = '10px monospace';
         ctx.fillStyle = 'white';
         ctx.textAlign = 'right';
         ctx.textBaseline = 'middle';
 
         // Position labels on the left side
-        const knobCenterX = this.x + 35;  // Keep same X position
-        const knobCenterY = this.y + this.height - 35;  // Move down below frequency display
+        const knobCenterX = this.x + 64;  // Keep same X position
+        const knobCenterY = this.y + this.height - 20;  // Move down below frequency display
         const knobRadius = 12;  // Make knob slightly smaller
         const labelOffset = 25;  // Distance from knob center to labels
 
         // Draw position labels
         ['FULL', 'TEST', 'OFF'].forEach((label, index) => {
-            const angle = -Math.PI/3 + (index * Math.PI/3);  // Keep same angle distribution
+            const angle = -Math.PI / 3 + (index * Math.PI / 3);  // Keep same angle distribution
             ctx.fillText(
                 label,
                 knobCenterX - labelOffset,
@@ -128,7 +128,7 @@ class Radio extends Instrument {
         ctx.stroke();
 
         // Add position indicator (white dot)
-        const dotAngle = -Math.PI/3;  // Fixed to FULL position
+        const dotAngle = -Math.PI / 3;  // Fixed to FULL position
         const dotRadius = 9;  // Slightly adjust dot distance from center
         ctx.beginPath();
         ctx.arc(
@@ -163,18 +163,18 @@ class Radio extends Instrument {
             ctx.beginPath();
             ctx.roundRect(x, y, buttonWidth, buttonHeight, 5);
             ctx.fill();
-            
+
             // Button border
             ctx.strokeStyle = '#505050';
             ctx.lineWidth = 1;
             ctx.stroke();
-            
+
             // Button label
             ctx.fillStyle = 'white';
-            ctx.font = '10px Arial';
+            ctx.font = '10px monospace';
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';
-            ctx.fillText(label, x + buttonWidth/2, y + buttonHeight/2);
+            ctx.fillText(label, x + buttonWidth / 2, y + buttonHeight / 2);
         };
 
         // Draw the buttons with new labels

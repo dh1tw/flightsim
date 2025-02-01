@@ -86,14 +86,14 @@ class Radio extends Instrument {
             this.y + 15 + displayHeight + 7  // 2px below the frequency display
         );
 
-        ctx.font = '10px monospace';
+        ctx.font = '6px monospace';
         ctx.fillStyle = 'white';
         ctx.textAlign = 'left';
         ctx.textBaseline = 'top';
         ctx.fillText(
             'Radio Control',
-            this.x + padding,  // Same left padding as frequency display
-            this.y + 2        // 2px from top
+            this.x + padding + 5,  // Same left padding as frequency display
+            this.y + 5        // 2px from top
         );
 
         // Draw rotary knob positions labels
@@ -156,25 +156,25 @@ class Radio extends Instrument {
             arrowLabelHeight,
             5  // Corner radius
         );
-        ctx.fillStyle = 'white';
+        ctx.fillStyle = '#d9d989';
         ctx.fill();
 
         // Draw double-headed arrow
         ctx.beginPath();
-        ctx.moveTo(arrowLabelX + 5, arrowLabelY + arrowLabelHeight/2);  // Start from left
-        ctx.lineTo(arrowLabelX + arrowLabelWidth - 5, arrowLabelY + arrowLabelHeight/2);  // Main line
+        ctx.moveTo(arrowLabelX + 5, arrowLabelY + arrowLabelHeight / 2);  // Start from left
+        ctx.lineTo(arrowLabelX + arrowLabelWidth - 5, arrowLabelY + arrowLabelHeight / 2);  // Main line
 
         // Left arrowhead (smaller)
-        ctx.moveTo(arrowLabelX + 5, arrowLabelY + arrowLabelHeight/2);
-        ctx.lineTo(arrowLabelX + 10, arrowLabelY + arrowLabelHeight/2 - 3);  // Upper point (reduced from 10 to 3)
-        ctx.moveTo(arrowLabelX + 5, arrowLabelY + arrowLabelHeight/2);
-        ctx.lineTo(arrowLabelX + 10, arrowLabelY + arrowLabelHeight/2 + 3);  // Lower point (reduced from 10 to 3)
+        ctx.moveTo(arrowLabelX + 5, arrowLabelY + arrowLabelHeight / 2);
+        ctx.lineTo(arrowLabelX + 10, arrowLabelY + arrowLabelHeight / 2 - 3);  // Upper point (reduced from 10 to 3)
+        ctx.moveTo(arrowLabelX + 5, arrowLabelY + arrowLabelHeight / 2);
+        ctx.lineTo(arrowLabelX + 10, arrowLabelY + arrowLabelHeight / 2 + 3);  // Lower point (reduced from 10 to 3)
 
         // Right arrowhead (smaller)
-        ctx.moveTo(arrowLabelX + arrowLabelWidth - 5, arrowLabelY + arrowLabelHeight/2);
-        ctx.lineTo(arrowLabelX + arrowLabelWidth - 10, arrowLabelY + arrowLabelHeight/2 - 3);  // Upper point (reduced from 10 to 3)
-        ctx.moveTo(arrowLabelX + arrowLabelWidth - 5, arrowLabelY + arrowLabelHeight/2);
-        ctx.lineTo(arrowLabelX + arrowLabelWidth - 10, arrowLabelY + arrowLabelHeight/2 + 3);  // Lower point (reduced from 10 to 3)
+        ctx.moveTo(arrowLabelX + arrowLabelWidth - 5, arrowLabelY + arrowLabelHeight / 2);
+        ctx.lineTo(arrowLabelX + arrowLabelWidth - 10, arrowLabelY + arrowLabelHeight / 2 - 3);  // Upper point (reduced from 10 to 3)
+        ctx.moveTo(arrowLabelX + arrowLabelWidth - 5, arrowLabelY + arrowLabelHeight / 2);
+        ctx.lineTo(arrowLabelX + arrowLabelWidth - 10, arrowLabelY + arrowLabelHeight / 2 + 3);  // Lower point (reduced from 10 to 3)
 
         ctx.strokeStyle = 'black';
         ctx.lineWidth = 2;

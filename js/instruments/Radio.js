@@ -6,7 +6,7 @@ class Radio extends Instrument {
         this.activeFreq = 118.00;  // Active frequency
         this.standbyFreq = 136.97; // Standby frequency
         this.isFlipping = false;   // Animation state for freq swap
-        this.knobPosition = 0;  // 0: FULL, 1: TEST, 2: OFF
+        this.knobPosition = 0;  // Fixed to FULL position
     }
 
     draw(ctx) {
@@ -103,23 +103,24 @@ class Radio extends Instrument {
         ctx.textBaseline = 'middle';
 
         // Position labels on the left side
-        const knobCenterX = this.x + 35;  // Knob position from left edge
-        const knobCenterY = this.y + this.height/2;  // Vertically centered
+        const knobCenterX = this.x + 35;  // Keep same X position
+        const knobCenterY = this.y + this.height - 35;  // Move down below frequency display
+        const knobRadius = 12;  // Make knob slightly smaller
         const labelOffset = 25;  // Distance from knob center to labels
 
         // Draw position labels
         ['FULL', 'TEST', 'OFF'].forEach((label, index) => {
-            const angle = -Math.PI/3 + (index * Math.PI/3);  // Distribute over 120 degrees
+            const angle = -Math.PI/3 + (index * Math.PI/3);  // Keep same angle distribution
             ctx.fillText(
                 label,
                 knobCenterX - labelOffset,
-                knobCenterY + Math.sin(angle) * 15
+                knobCenterY + Math.sin(angle) * 12  // Adjust label positioning
             );
         });
 
         // Draw the knob
         ctx.beginPath();
-        ctx.arc(knobCenterX, knobCenterY, 15, 0, Math.PI * 2);
+        ctx.arc(knobCenterX, knobCenterY, knobRadius, 0, Math.PI * 2);
         ctx.fillStyle = '#404040';
         ctx.fill();
         ctx.strokeStyle = '#505050';
@@ -127,13 +128,13 @@ class Radio extends Instrument {
         ctx.stroke();
 
         // Add position indicator (white dot)
-        const dotAngle = -Math.PI/3 + (this.knobPosition * Math.PI/3);
-        const dotRadius = 12;  // Slightly inside the knob edge
+        const dotAngle = -Math.PI/3;  // Fixed to FULL position
+        const dotRadius = 9;  // Slightly adjust dot distance from center
         ctx.beginPath();
         ctx.arc(
             knobCenterX + Math.cos(dotAngle) * dotRadius,
             knobCenterY + Math.sin(dotAngle) * dotRadius,
-            3,
+            2,  // Make dot slightly smaller
             0,
             Math.PI * 2
         );
@@ -142,7 +143,7 @@ class Radio extends Instrument {
 
         // Add knob center detail
         ctx.beginPath();
-        ctx.arc(knobCenterX, knobCenterY, 5, 0, Math.PI * 2);
+        ctx.arc(knobCenterX, knobCenterY, 4, 0, Math.PI * 2);
         ctx.fillStyle = '#303030';
         ctx.fill();
 

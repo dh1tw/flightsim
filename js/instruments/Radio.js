@@ -147,6 +147,41 @@ class Radio extends Instrument {
         ctx.fillStyle = '#303030';
         ctx.fill();
 
+        // Draw second (larger) rotary knob
+        const knob2CenterX = knobCenterX + 30 + 24;  // 30px margin + first knob radius
+        const knob2CenterY = knobCenterY;  // Same vertical alignment
+        const knob2Radius = 24;  // Twice the size of first knob (12 * 2)
+
+        // Draw outer ring
+        ctx.beginPath();
+        ctx.arc(knob2CenterX, knob2CenterY, knob2Radius, 0, Math.PI * 2);
+        ctx.fillStyle = '#404040';
+        ctx.fill();
+        ctx.strokeStyle = '#505050';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+
+        // Draw decorative ring
+        ctx.beginPath();
+        ctx.arc(knob2CenterX, knob2CenterY, knob2Radius - 6, 0, Math.PI * 2);
+        ctx.strokeStyle = '#303030';
+        ctx.lineWidth = 3;
+        ctx.stroke();
+
+        // Add knob center detail
+        ctx.beginPath();
+        ctx.arc(knob2CenterX, knob2CenterY, 8, 0, Math.PI * 2);
+        ctx.fillStyle = '#303030';
+        ctx.fill();
+
+        // Add position indicator line
+        ctx.beginPath();
+        ctx.moveTo(knob2CenterX, knob2CenterY - knob2Radius + 8);
+        ctx.lineTo(knob2CenterX, knob2CenterY);
+        ctx.strokeStyle = 'white';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+
         // Draw control buttons
         const buttonY = this.y + this.height - 30; // Position buttons at bottom
         const buttonWidth = 40;

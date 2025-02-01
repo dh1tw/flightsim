@@ -64,6 +64,27 @@ class Radio extends Instrument {
             this.y + 15 + displayHeight/2  // Center in the new display height
         );
 
+        // Add labels below frequencies
+        ctx.font = '10px monospace';
+        ctx.fillStyle = 'white';
+        ctx.textBaseline = 'top';
+
+        // COMM1 label (below active frequency)
+        ctx.textAlign = 'left';
+        ctx.fillText(
+            'COMM1',
+            this.x + padding + 3,   // Same alignment as active frequency
+            this.y + 15 + displayHeight + 2  // 2px below the frequency display
+        );
+
+        // STBY label (below standby frequency)
+        ctx.textAlign = 'right';
+        ctx.fillText(
+            'STBY',
+            this.x + this.width - padding - 3,  // Same alignment as standby frequency
+            this.y + 15 + displayHeight + 2  // 2px below the frequency display
+        );
+
         ctx.font = '10px monospace';
         ctx.fillStyle = 'white';
         ctx.textAlign = 'left';

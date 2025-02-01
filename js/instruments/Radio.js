@@ -20,17 +20,6 @@ class Radio extends Instrument {
         ctx.fill();
         ctx.stroke();
 
-        // Add "Radio Control" label
-        ctx.font = '10px Arial';
-        ctx.fillStyle = 'white';
-        ctx.textAlign = 'left';
-        ctx.textBaseline = 'top';
-        ctx.fillText(
-            'Radio Control',
-            this.x + padding,  // Same left padding as frequency display
-            this.y + 2        // 2px from top
-        );
-
         // Display areas
         const displayHeight = this.height * 0.4;  // Make displays taller
         const padding = 10;
@@ -40,7 +29,7 @@ class Radio extends Instrument {
         ctx.fillStyle = '#000';
         ctx.fillRect(
             this.x + padding,
-            this.y + 5,  // 5 pixels from top
+            this.y + 10,  // 5 pixels from top
             this.width - 2 * padding,
             displayHeight
         );
@@ -66,7 +55,22 @@ class Radio extends Instrument {
             this.x + this.width - padding - 3,  // 3px from right border
             this.y + 5 + displayHeight / 2
         );
+
+        ctx.font = '10px monospace';
+        ctx.fillStyle = 'white';
+        ctx.textAlign = 'left';
+        ctx.textBaseline = 'top';
+        ctx.fillText(
+            'Radio Control',
+            this.x + padding,  // Same left padding as frequency display
+            this.y + 2        // 2px from top
+        );
+
     }
+
+
+
+
 
     drawButton(ctx, x, y, size, label) {
         ctx.fillStyle = '#404040';

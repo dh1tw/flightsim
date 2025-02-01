@@ -69,18 +69,21 @@ class Radio extends Instrument {
         );
 
         // NAV frequencies
-        const navActiveX = this.x + padding + activeFreqWidth + 15 + activeFreqWidth + 20;
+        const navActiveX = this.x + padding + activeFreqWidth + 15 + activeFreqWidth + 60; // Increased spacing
+        const navActiveFreqWidth = ctx.measureText(this.activeNavFreq.toFixed(2)).width;
+
+        // Active NAV (left-aligned)
+        ctx.textAlign = 'left';
         ctx.fillText(
             this.activeNavFreq.toFixed(2),    // Active NAV
             navActiveX,
             yPos
         );
 
-        // NAV Standby frequency (right-aligned)
-        ctx.textAlign = 'right';
+        // Standby NAV (to the right of active NAV)
         ctx.fillText(
             this.standbyNavFreq.toFixed(2),    // Standby NAV
-            this.x + this.width - padding - 3,  // Align to right edge with padding
+            navActiveX + navActiveFreqWidth + 10,  // 10px after active NAV
             yPos
         );
 

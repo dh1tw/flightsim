@@ -39,20 +39,21 @@ class Radio extends Instrument {
 
         // Active frequency (left)
         ctx.fillStyle = '#00ff00';  // Active freq in green
-        ctx.textAlign = 'center';
+        ctx.textAlign = 'left';     // Align left
         ctx.textBaseline = 'middle';
         ctx.fillText(
             this.activeFreq.toFixed(3),
-            this.x + displayWidth / 2,
-            this.y + 5 + displayHeight / 2  // Align with new display position
+            this.x + padding + 3,   // 3px from left border
+            this.y + 5 + displayHeight / 2
         );
 
         // Standby frequency (right)
         ctx.fillStyle = '#ffff00';  // Standby freq in yellow
+        ctx.textAlign = 'right';    // Align right
         ctx.fillText(
             this.standbyFreq.toFixed(3),
-            this.x + displayWidth + 2 * padding + displayWidth / 2,
-            this.y + 5 + displayHeight / 2  // Align with new display position
+            this.x + this.width - padding - 3,  // 3px from right border
+            this.y + 5 + displayHeight / 2
         );
     }
 

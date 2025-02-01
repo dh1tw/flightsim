@@ -280,14 +280,12 @@ class Radio extends Instrument {
         const lowerY = knob2CenterY + arcRadius * Math.sin(endAngle);
         drawArrowhead(lowerX, lowerY, endAngle + Math.PI / 2);
 
-        // Draw control buttons
-        const buttonY = this.y + this.height - 30; // Position buttons at bottom
+        // Draw control buttons vertically to the right of second knob
         const buttonWidth = 40;
         const buttonHeight = 20;
-        const buttonSpacing = 10;
-
-        // Calculate starting X position to align buttons to the right
-        let currentX = this.x + this.width - (3 * buttonWidth + 2 * buttonSpacing + padding);
+        const buttonSpacing = 5;
+        const startButtonX = knob2CenterX + knob2Radius + 20; // Position after second knob
+        let currentY = knobCenterY - buttonHeight - buttonSpacing; // Start above center aligned with knob
 
         // Helper function to draw a button
         const drawButton = (x, y, label) => {
@@ -307,13 +305,13 @@ class Radio extends Instrument {
             ctx.font = '10px monospace';
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';
-            ctx.fillText(label, x + buttonWidth / 2, y + buttonHeight / 2);
+            ctx.fillText(label, x + buttonWidth/2, y + buttonHeight/2);
         };
 
-        // Draw the buttons with new labels
+        // Draw the buttons vertically
         ['TIMER', 'SWAP', 'OBS'].forEach(label => {
-            drawButton(currentX, buttonY, label);
-            currentX += buttonWidth + buttonSpacing;
+            drawButton(startButtonX, currentY, label);
+            currentY += buttonHeight + buttonSpacing;
         });
     }
 

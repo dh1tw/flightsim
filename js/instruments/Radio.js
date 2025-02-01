@@ -29,7 +29,7 @@ class Radio extends Instrument {
         ctx.beginPath();
         ctx.roundRect(
             this.x + padding,
-            this.y + 10,  // 5 pixels from top
+            this.y + 15,  // 5 pixels from top
             this.width - 2 * padding,
             displayHeight,
             5  // 5px radius for rounded corners

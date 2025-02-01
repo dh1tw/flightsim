@@ -20,6 +20,17 @@ class Radio extends Instrument {
         ctx.fill();
         ctx.stroke();
 
+        // Add "Radio Control" label
+        ctx.font = '10px Arial';
+        ctx.fillStyle = 'white';
+        ctx.textAlign = 'left';
+        ctx.textBaseline = 'top';
+        ctx.fillText(
+            'Radio Control',
+            this.x + padding,  // Same left padding as frequency display
+            this.y + 2        // 2px from top
+        );
+
         // Display areas
         const displayHeight = this.height * 0.4;  // Make displays taller
         const padding = 10;

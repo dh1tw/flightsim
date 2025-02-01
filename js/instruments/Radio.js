@@ -51,16 +51,16 @@ class Radio extends Instrument {
         ctx.textAlign = 'left';     // Align left
         ctx.textBaseline = 'middle';
         ctx.fillText(
-            this.activeFreq.toFixed(3),
+            this.activeFreq.toFixed(2),    // Changed from toFixed(3) to toFixed(2)
             this.x + padding + 3,   // 3px from left border
             this.y + 15 + displayHeight / 2  // Center in the new display height
         );
 
         // Standby frequency (right)
-        ctx.fillStyle = '##a14318';  // Standby freq in yellow
+        ctx.fillStyle = '#a14318';  // Fixed double # typo
         ctx.textAlign = 'right';    // Align right
         ctx.fillText(
-            this.standbyFreq.toFixed(3),
+            this.standbyFreq.toFixed(2),   // Changed from toFixed(3) to toFixed(2)
             this.x + this.width - padding - 3,  // 3px from right border
             this.y + 15 + displayHeight / 2  // Center in the new display height
         );

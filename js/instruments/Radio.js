@@ -142,10 +142,10 @@ class Radio extends Instrument {
         ctx.fill();
 
         // Draw double-headed arrow label
-        const arrowLabelX = knobCenterX + 30;  // Position right of first knob
-        const arrowLabelY = knobCenterY - 15;  // Center vertically with knob
-        const arrowLabelWidth = 90;
-        const arrowLabelHeight = 30;
+        const arrowLabelX = knobCenterX + 1;  // Position right of first knob
+        const arrowLabelY = knobCenterY - 35;  // Center vertically with knob
+        const arrowLabelWidth = 35;
+        const arrowLabelHeight = 15;
 
         // Draw white background rectangle with rounded edges
         ctx.beginPath();
@@ -161,19 +161,19 @@ class Radio extends Instrument {
 
         // Draw double-headed arrow
         ctx.beginPath();
-        ctx.moveTo(arrowLabelX + 10, arrowLabelY + arrowLabelHeight/2);  // Start from left
-        ctx.lineTo(arrowLabelX + arrowLabelWidth - 10, arrowLabelY + arrowLabelHeight/2);  // Main line
+        ctx.moveTo(arrowLabelX + 5, arrowLabelY + arrowLabelHeight / 2);  // Start from left
+        ctx.lineTo(arrowLabelX + arrowLabelWidth - 5, arrowLabelY + arrowLabelHeight / 2);  // Main line
 
         // Left arrowhead
-        ctx.moveTo(arrowLabelX + 10, arrowLabelY + arrowLabelHeight/2);
+        ctx.moveTo(arrowLabelX + 10, arrowLabelY + arrowLabelHeight / 2);
         ctx.lineTo(arrowLabelX + 20, arrowLabelY + 10);  // Upper point
-        ctx.moveTo(arrowLabelX + 10, arrowLabelY + arrowLabelHeight/2);
+        ctx.moveTo(arrowLabelX + 10, arrowLabelY + arrowLabelHeight / 2);
         ctx.lineTo(arrowLabelX + 20, arrowLabelY + arrowLabelHeight - 10);  // Lower point
 
         // Right arrowhead
-        ctx.moveTo(arrowLabelX + arrowLabelWidth - 10, arrowLabelY + arrowLabelHeight/2);
+        ctx.moveTo(arrowLabelX + arrowLabelWidth - 10, arrowLabelY + arrowLabelHeight / 2);
         ctx.lineTo(arrowLabelX + arrowLabelWidth - 20, arrowLabelY + 10);  // Upper point
-        ctx.moveTo(arrowLabelX + arrowLabelWidth - 10, arrowLabelY + arrowLabelHeight/2);
+        ctx.moveTo(arrowLabelX + arrowLabelWidth - 10, arrowLabelY + arrowLabelHeight / 2);
         ctx.lineTo(arrowLabelX + arrowLabelWidth - 20, arrowLabelY + arrowLabelHeight - 10);  // Lower point
 
         ctx.strokeStyle = 'black';

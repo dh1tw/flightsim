@@ -1,6 +1,8 @@
 class Radio extends Instrument {
-    constructor(x, y, size) {
-        super(x, y, size);
+    constructor(x, y, width, height) {
+        super(x, y, width);
+        this.width = width;
+        this.height = height || width/2;
         this.activeFreq = 118.00;  // Active frequency
         this.standbyFreq = 136.97; // Standby frequency
         this.isFlipping = false;   // Animation state for freq swap
@@ -14,22 +16,22 @@ class Radio extends Instrument {
         
         // Main radio housing
         ctx.beginPath();
-        ctx.roundRect(this.x, this.y, this.size, this.size/2, 5);
+        ctx.roundRect(this.x, this.y, this.width, this.height, 5);
         ctx.fill();
         ctx.stroke();
         
         // Display areas
-        const displayHeight = this.size/6;
+        const displayHeight = this.height/3;
         const padding = 10;
         
         // Active frequency display
         ctx.fillStyle = '#000';
         ctx.fillRect(this.x + padding, this.y + padding, 
-                    this.size - 2*padding, displayHeight);
+                    this.width - 2*padding, displayHeight);
         
         // Standby frequency display
         ctx.fillRect(this.x + padding, this.y + 2*padding + displayHeight, 
-                    this.size - 2*padding, displayHeight);
+                    this.width - 2*padding, displayHeight);
         
         // Draw frequencies
         ctx.font = `${displayHeight*0.8}px 'LCD', monospace`;
@@ -37,7 +39,7 @@ class Radio extends Instrument {
         ctx.textAlign = 'center';
         ctx.fillText(
             this.activeFreq.toFixed(3),
-            this.x + this.size/2,
+            this.x + this.width/2,
             this.y + padding + displayHeight*0.8
         );
         
@@ -50,15 +52,15 @@ class Radio extends Instrument {
         
         // Draw buttons
         const buttonSize = 20;
-        const buttonY = this.y + this.size/2 - buttonSize - padding;
+        const buttonY = this.y + this.height - buttonSize - padding;
         
         // Left buttons
         this.drawButton(ctx, this.x + padding, buttonY, buttonSize, '⟲');
         this.drawButton(ctx, this.x + padding + buttonSize + 5, buttonY, buttonSize, '↕');
         
         // Right buttons
-        this.drawButton(ctx, this.x + this.size - 2*buttonSize - padding - 5, buttonY, buttonSize, '−');
-        this.drawButton(ctx, this.x + this.size - buttonSize - padding, buttonY, buttonSize, '+');
+        this.drawButton(ctx, this.x + this.width - 2*buttonSize - padding - 5, buttonY, buttonSize, '−');
+        this.drawButton(ctx, this.x + this.width - buttonSize - padding, buttonY, buttonSize, '+');
     }
     
     drawButton(ctx, x, y, size, label) {

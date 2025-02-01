@@ -29,7 +29,7 @@ class Radio extends Instrument {
         ctx.fillStyle = '#000';
         ctx.fillRect(
             this.x + padding,
-            this.y + (this.height - displayHeight) / 2,  // Center vertically
+            this.y + 5,  // 5 pixels from top
             this.width - 2 * padding,
             displayHeight
         );
@@ -44,7 +44,7 @@ class Radio extends Instrument {
         ctx.fillText(
             this.activeFreq.toFixed(3),
             this.x + padding + displayWidth / 2,
-            this.y + this.height / 2
+            this.y + 5 + displayHeight/2  // Align with new display position
         );
 
         // Standby frequency (right)
@@ -52,7 +52,7 @@ class Radio extends Instrument {
         ctx.fillText(
             this.standbyFreq.toFixed(3),
             this.x + displayWidth + 2 * padding + displayWidth / 2,
-            this.y + this.height / 2
+            this.y + 5 + displayHeight/2  // Align with new display position
         );
     }
 

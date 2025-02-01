@@ -25,14 +25,20 @@ class Radio extends Instrument {
         const padding = 10;
         const displayWidth = (this.width - 3 * padding) / 2;  // Width for each frequency display
 
-        // Create continuous black background for both frequencies
-        ctx.fillStyle = '#000';
-        ctx.fillRect(
+        // Draw black background with gray border
+        ctx.beginPath();
+        ctx.roundRect(
             this.x + padding,
             this.y + 10,  // 5 pixels from top
             this.width - 2 * padding,
-            displayHeight
+            displayHeight,
+            5  // 5px radius for rounded corners
         );
+        ctx.fillStyle = '#000';
+        ctx.fill();
+        ctx.strokeStyle = '#404040';  // Gray border
+        ctx.lineWidth = 2;
+        ctx.stroke();
 
         // Draw frequencies
         ctx.font = `${displayHeight * 0.6}px 'DS-Digital', monospace`;

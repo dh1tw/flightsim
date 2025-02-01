@@ -161,20 +161,20 @@ class Radio extends Instrument {
 
         // Draw double-headed arrow
         ctx.beginPath();
-        ctx.moveTo(arrowLabelX + 5, arrowLabelY + arrowLabelHeight / 2);  // Start from left
-        ctx.lineTo(arrowLabelX + arrowLabelWidth - 5, arrowLabelY + arrowLabelHeight / 2);  // Main line
+        ctx.moveTo(arrowLabelX + 5, arrowLabelY + arrowLabelHeight/2);  // Start from left
+        ctx.lineTo(arrowLabelX + arrowLabelWidth - 5, arrowLabelY + arrowLabelHeight/2);  // Main line
 
-        // Left arrowhead
-        ctx.moveTo(arrowLabelX + 10, arrowLabelY + arrowLabelHeight / 2);
-        ctx.lineTo(arrowLabelX + 20, arrowLabelY + 10);  // Upper point
-        ctx.moveTo(arrowLabelX + 10, arrowLabelY + arrowLabelHeight / 2);
-        ctx.lineTo(arrowLabelX + 20, arrowLabelY + arrowLabelHeight - 10);  // Lower point
+        // Left arrowhead (smaller)
+        ctx.moveTo(arrowLabelX + 5, arrowLabelY + arrowLabelHeight/2);
+        ctx.lineTo(arrowLabelX + 10, arrowLabelY + arrowLabelHeight/2 - 3);  // Upper point (reduced from 10 to 3)
+        ctx.moveTo(arrowLabelX + 5, arrowLabelY + arrowLabelHeight/2);
+        ctx.lineTo(arrowLabelX + 10, arrowLabelY + arrowLabelHeight/2 + 3);  // Lower point (reduced from 10 to 3)
 
-        // Right arrowhead
-        ctx.moveTo(arrowLabelX + arrowLabelWidth - 10, arrowLabelY + arrowLabelHeight / 2);
-        ctx.lineTo(arrowLabelX + arrowLabelWidth - 20, arrowLabelY + 10);  // Upper point
-        ctx.moveTo(arrowLabelX + arrowLabelWidth - 10, arrowLabelY + arrowLabelHeight / 2);
-        ctx.lineTo(arrowLabelX + arrowLabelWidth - 20, arrowLabelY + arrowLabelHeight - 10);  // Lower point
+        // Right arrowhead (smaller)
+        ctx.moveTo(arrowLabelX + arrowLabelWidth - 5, arrowLabelY + arrowLabelHeight/2);
+        ctx.lineTo(arrowLabelX + arrowLabelWidth - 10, arrowLabelY + arrowLabelHeight/2 - 3);  // Upper point (reduced from 10 to 3)
+        ctx.moveTo(arrowLabelX + arrowLabelWidth - 5, arrowLabelY + arrowLabelHeight/2);
+        ctx.lineTo(arrowLabelX + arrowLabelWidth - 10, arrowLabelY + arrowLabelHeight/2 + 3);  // Lower point (reduced from 10 to 3)
 
         ctx.strokeStyle = 'black';
         ctx.lineWidth = 2;

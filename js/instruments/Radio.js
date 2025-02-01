@@ -52,7 +52,7 @@ class Radio extends Instrument {
         ctx.fillText(
             this.activeFreq.toFixed(3),
             this.x + padding + 3,   // 3px from left border
-            this.y + 15 + displayHeight/2  // Center in the new display height
+            this.y + 15 + displayHeight / 2  // Center in the new display height
         );
 
         // Standby frequency (right)
@@ -61,7 +61,7 @@ class Radio extends Instrument {
         ctx.fillText(
             this.standbyFreq.toFixed(3),
             this.x + this.width - padding - 3,  // 3px from right border
-            this.y + 15 + displayHeight/2  // Center in the new display height
+            this.y + 15 + displayHeight / 2  // Center in the new display height
         );
 
         // Add labels below frequencies
@@ -95,27 +95,6 @@ class Radio extends Instrument {
             this.y + 2        // 2px from top
         );
 
-    }
-
-
-
-
-
-    drawButton(ctx, x, y, size, label) {
-        ctx.fillStyle = '#404040';
-        ctx.beginPath();
-        ctx.roundRect(x, y, size, size, 3);
-        ctx.fill();
-
-        ctx.strokeStyle = '#505050';
-        ctx.lineWidth = 1;
-        ctx.stroke();
-
-        ctx.fillStyle = 'white';
-        ctx.font = `${size * 0.7}px Arial`;
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        ctx.fillText(label, x + size / 2, y + size / 2);
     }
 
     update(data) {

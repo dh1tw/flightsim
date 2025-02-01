@@ -6,6 +6,7 @@ class Radio extends Instrument {
         this.activeFreq = 118.00;  // Active frequency
         this.standbyFreq = 136.97; // Standby frequency
         this.isFlipping = false;   // Animation state for freq swap
+        this.knobPosition = 0;  // 0: FULL, 1: TEST, 2: OFF
     }
 
     draw(ctx) {
@@ -135,5 +136,8 @@ class Radio extends Instrument {
     update(data) {
         if (data.activeFreq) this.activeFreq = data.activeFreq;
         if (data.standbyFreq) this.standbyFreq = data.standbyFreq;
+        if (data.knobPosition !== undefined) {
+            this.knobPosition = data.knobPosition;
+        }
     }
 }

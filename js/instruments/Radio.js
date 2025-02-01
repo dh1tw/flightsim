@@ -96,6 +96,56 @@ class Radio extends Instrument {
             this.y + 2        // 2px from top
         );
 
+        // Draw rotary knob positions labels
+        ctx.font = '10px Arial';
+        ctx.fillStyle = 'white';
+        ctx.textAlign = 'right';
+        ctx.textBaseline = 'middle';
+
+        // Position labels on the left side
+        const knobCenterX = this.x + 35;  // Knob position from left edge
+        const knobCenterY = this.y + this.height/2;  // Vertically centered
+        const labelOffset = 25;  // Distance from knob center to labels
+
+        // Draw position labels
+        ['FULL', 'TEST', 'OFF'].forEach((label, index) => {
+            const angle = -Math.PI/3 + (index * Math.PI/3);  // Distribute over 120 degrees
+            ctx.fillText(
+                label,
+                knobCenterX - labelOffset,
+                knobCenterY + Math.sin(angle) * 15
+            );
+        });
+
+        // Draw the knob
+        ctx.beginPath();
+        ctx.arc(knobCenterX, knobCenterY, 15, 0, Math.PI * 2);
+        ctx.fillStyle = '#404040';
+        ctx.fill();
+        ctx.strokeStyle = '#505050';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+
+        // Add position indicator (white dot)
+        const dotAngle = -Math.PI/3 + (this.knobPosition * Math.PI/3);
+        const dotRadius = 12;  // Slightly inside the knob edge
+        ctx.beginPath();
+        ctx.arc(
+            knobCenterX + Math.cos(dotAngle) * dotRadius,
+            knobCenterY + Math.sin(dotAngle) * dotRadius,
+            3,
+            0,
+            Math.PI * 2
+        );
+        ctx.fillStyle = 'white';
+        ctx.fill();
+
+        // Add knob center detail
+        ctx.beginPath();
+        ctx.arc(knobCenterX, knobCenterY, 5, 0, Math.PI * 2);
+        ctx.fillStyle = '#303030';
+        ctx.fill();
+
         // Draw control buttons
         const buttonY = this.y + this.height - 30; // Position buttons at bottom
         const buttonWidth = 40;

@@ -21,33 +21,47 @@ class Radio extends Instrument {
         ctx.stroke();
 
         // Display areas
-        const displayHeight = this.height / 3;
+        const displayHeight = this.height * 0.4;  // Make displays taller
         const padding = 10;
+        const displayWidth = (this.width - 3 * padding) / 2;  // Width for each frequency display
 
+        // Left display (COM1)
         // Active frequency display
         ctx.fillStyle = '#000';
-        ctx.fillRect(this.x + padding, this.y + padding,
-            this.width - 2 * padding, displayHeight);
-
-        // Standby frequency display
-        ctx.fillRect(this.x + padding, this.y + 2 * padding + displayHeight,
-            this.width - 2 * padding, displayHeight);
-
-        // Draw frequencies
-        ctx.font = `${displayHeight * 0.8}px 'DS-Digital', monospace`;
-        ctx.fillStyle = '#00ff00'; // Active freq in green
-        ctx.textAlign = 'center';
-        ctx.fillText(
-            this.activeFreq.toFixed(3),
-            this.x + this.width / 2,
-            this.y + padding + displayHeight * 0.8
+        ctx.fillRect(
+            this.x + padding, 
+            this.y + (this.height - displayHeight)/2,  // Center vertically
+            displayWidth, 
+            displayHeight
         );
 
-        ctx.fillStyle = '#ffff00'; // Standby freq in yellow
+        // Right display (COM1 Standby)
+        ctx.fillRect(
+            this.x + displayWidth + 2 * padding,
+            this.y + (this.height - displayHeight)/2,  // Center vertically
+            displayWidth, 
+            displayHeight
+        );
+
+        // Draw frequencies
+        ctx.font = `${displayHeight * 0.6}px 'DS-Digital', monospace`;
+        
+        // Active frequency (left)
+        ctx.fillStyle = '#00ff00';  // Active freq in green
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(
+            this.activeFreq.toFixed(3),
+            this.x + padding + displayWidth/2,
+            this.y + this.height/2
+        );
+
+        // Standby frequency (right)
+        ctx.fillStyle = '#ffff00';  // Standby freq in yellow
         ctx.fillText(
             this.standbyFreq.toFixed(3),
-            this.x + this.size / 2,
-            this.y + 2 * padding + displayHeight * 1.8
+            this.x + displayWidth + 2 * padding + displayWidth/2,
+            this.y + this.height/2
         );
     }
 

@@ -3,10 +3,10 @@ class Radio extends Instrument {
         super(x, y, width);
         this.width = width;
         this.height = height || width / 2;
-        this.activeFreq = 118.00;      // Active COMM frequency
-        this.standbyFreq = 136.97;     // Standby COMM frequency
-        this.activeNavFreq = 108.00;   // Active NAV frequency
-        this.standbyNavFreq = 108.00;  // Standby NAV frequency
+        this.activeFreq = 128.30;      // Active COMM frequency
+        this.standbyFreq = 118.70;     // Standby COMM frequency
+        this.activeNavFreq = 113.00;   // Active NAV frequency
+        this.standbyNavFreq = 117.20;  // Standby NAV frequency
         this.isFlipping = false;   // Animation state for freq swap
         this.knobPosition = 0;  // Fixed to FULL position
     }
@@ -50,15 +50,6 @@ class Radio extends Instrument {
         ctx.textBaseline = 'middle';
         const yPos = this.y + 15 + displayHeight / 2;
 
-        // Active frequency (left)
-        ctx.fillStyle = '#a14318';
-        ctx.textAlign = 'left';
-        ctx.fillText(
-            this.activeFreq.toFixed(2),
-            this.x + padding + 3,
-            yPos
-        );
-
         // Get width of active frequency text
         const activeFreqWidth = ctx.measureText(this.activeFreq.toFixed(2)).width;
 
@@ -73,12 +64,12 @@ class Radio extends Instrument {
         );
         ctx.fillText(
             this.standbyFreq.toFixed(2),   // Standby COMM
-            this.x + padding + 3 + activeFreqWidth + 10,
+            this.x + padding + activeFreqWidth + 15,
             yPos
         );
 
-        // NAV frequencies (right side, 60px gap after COMM frequencies)
-        const navStart = this.x + padding + 3 + activeFreqWidth + 10 + activeFreqWidth + 60;
+        // NAV frequencies (right side, 20px gap after COMM frequencies)
+        const navStart = this.x + padding + activeFreqWidth + 15 + activeFreqWidth + 20;
         ctx.fillText(
             this.activeNavFreq.toFixed(2),    // Active NAV
             navStart,

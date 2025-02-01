@@ -11,7 +11,7 @@ class Radio extends Instrument {
 
     draw(ctx) {
         // Draw radio box
-        ctx.fillStyle = '#2a2a2a';
+        ctx.fillStyle = '#5a5a5a';
         ctx.strokeStyle = '#404040';
         ctx.lineWidth = 2;
 
@@ -47,7 +47,7 @@ class Radio extends Instrument {
         ctx.font = `${fontSize}px 'DS-Digital', monospace`;  // Set font size before drawing text
 
         // Active frequency (left)
-        ctx.fillStyle = '#00ff00';  // Active freq in green
+        ctx.fillStyle = '#a14318';  // Active freq in green
         ctx.textAlign = 'left';     // Align left
         ctx.textBaseline = 'middle';
         ctx.fillText(
@@ -57,7 +57,7 @@ class Radio extends Instrument {
         );
 
         // Standby frequency (right)
-        ctx.fillStyle = '#ffff00';  // Standby freq in yellow
+        ctx.fillStyle = '##a14318';  // Standby freq in yellow
         ctx.textAlign = 'right';    // Align right
         ctx.fillText(
             this.standbyFreq.toFixed(3),
@@ -75,7 +75,7 @@ class Radio extends Instrument {
         ctx.fillText(
             'COMM1',
             this.x + padding + 3,   // Same alignment as active frequency
-            this.y + 15 + displayHeight + 2  // 2px below the frequency display
+            this.y + 15 + displayHeight + 7  // 2px below the frequency display
         );
 
         // STBY label (below standby frequency)
@@ -83,7 +83,7 @@ class Radio extends Instrument {
         ctx.fillText(
             'STBY',
             this.x + this.width - padding - 3,  // Same alignment as standby frequency
-            this.y + 15 + displayHeight + 2  // 2px below the frequency display
+            this.y + 15 + displayHeight + 7  // 2px below the frequency display
         );
 
         ctx.font = '10px monospace';
@@ -106,7 +106,7 @@ class Radio extends Instrument {
         const knobCenterX = this.x + 64;  // Keep same X position
         const knobCenterY = this.y + this.height - 20;  // Move down below frequency display
         const knobRadius = 12;  // Make knob slightly smaller
-        const labelOffset = 25;  // Distance from knob center to labels
+        const labelOffset = 20;  // Distance from knob center to labels
 
         // Draw position labels
         ['FULL', 'TEST', 'OFF'].forEach((label, index) => {
@@ -128,7 +128,7 @@ class Radio extends Instrument {
         ctx.stroke();
 
         // Add position indicator (white dot)
-        const dotAngle = -Math.PI / 3;  // Fixed to FULL position
+        const dotAngle = 4;  // Fixed to FULL position
         const dotRadius = 9;  // Slightly adjust dot distance from center
         ctx.beginPath();
         ctx.arc(
@@ -141,15 +141,9 @@ class Radio extends Instrument {
         ctx.fillStyle = 'white';
         ctx.fill();
 
-        // Add knob center detail
-        ctx.beginPath();
-        ctx.arc(knobCenterX, knobCenterY, 4, 0, Math.PI * 2);
-        ctx.fillStyle = '#303030';
-        ctx.fill();
-
         // Draw second (larger) rotary knob
-        const knob2CenterX = knobCenterX + 30 + 24;  // 30px margin + first knob radius
-        const knob2CenterY = knobCenterY;  // Same vertical alignment
+        const knob2CenterX = knobCenterX + 40 + 24;  // 30px margin + first knob radius
+        const knob2CenterY = knobCenterY - 12;  // Same vertical alignment
         const knob2Radius = 24;  // Twice the size of first knob (12 * 2)
 
         // Draw outer ring
@@ -166,20 +160,6 @@ class Radio extends Instrument {
         ctx.arc(knob2CenterX, knob2CenterY, knob2Radius - 6, 0, Math.PI * 2);
         ctx.strokeStyle = '#303030';
         ctx.lineWidth = 3;
-        ctx.stroke();
-
-        // Add knob center detail
-        ctx.beginPath();
-        ctx.arc(knob2CenterX, knob2CenterY, 8, 0, Math.PI * 2);
-        ctx.fillStyle = '#303030';
-        ctx.fill();
-
-        // Add position indicator line
-        ctx.beginPath();
-        ctx.moveTo(knob2CenterX, knob2CenterY - knob2Radius + 8);
-        ctx.lineTo(knob2CenterX, knob2CenterY);
-        ctx.strokeStyle = 'white';
-        ctx.lineWidth = 2;
         ctx.stroke();
 
         // Draw control buttons

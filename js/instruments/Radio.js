@@ -100,7 +100,9 @@ class Radio extends Instrument {
         const buttonWidth = 40;
         const buttonHeight = 20;
         const buttonSpacing = 10;
-        let currentX = this.x + padding;
+
+        // Calculate starting X position to align buttons to the right
+        let currentX = this.x + this.width - (3 * buttonWidth + 2 * buttonSpacing + padding);
 
         // Helper function to draw a button
         const drawButton = (x, y, label) => {
@@ -123,8 +125,8 @@ class Radio extends Instrument {
             ctx.fillText(label, x + buttonWidth/2, y + buttonHeight/2);
         };
 
-        // Draw the buttons
-        ['TEST', 'SWAP', 'SET'].forEach(label => {
+        // Draw the buttons with new labels
+        ['TIMER', 'SWAP', 'OBS'].forEach(label => {
             drawButton(currentX, buttonY, label);
             currentX += buttonWidth + buttonSpacing;
         });

@@ -29,30 +29,30 @@ class Radio extends Instrument {
         ctx.fillStyle = '#000';
         ctx.fillRect(
             this.x + padding,
-            this.y + (this.height - displayHeight)/2,  // Center vertically
+            this.y + (this.height - displayHeight) / 2,  // Center vertically
             this.width - 2 * padding,
             displayHeight
         );
 
         // Draw frequencies
         ctx.font = `${displayHeight * 0.6}px 'DS-Digital', monospace`;
-        
+
         // Active frequency (left)
         ctx.fillStyle = '#00ff00';  // Active freq in green
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
         ctx.fillText(
             this.activeFreq.toFixed(3),
-            this.x + padding + displayWidth/2,
-            this.y + this.height/2
+            this.x + padding + displayWidth / 2,
+            this.y + this.height / 2
         );
 
         // Standby frequency (right)
         ctx.fillStyle = '#ffff00';  // Standby freq in yellow
         ctx.fillText(
             this.standbyFreq.toFixed(3),
-            this.x + displayWidth + 2 * padding + displayWidth/2,
-            this.y + this.height/2
+            this.x + displayWidth + 2 * padding + displayWidth / 2,
+            this.y + this.height / 2
         );
     }
 

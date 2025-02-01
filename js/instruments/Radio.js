@@ -141,6 +141,45 @@ class Radio extends Instrument {
         ctx.fillStyle = 'white';
         ctx.fill();
 
+        // Draw double-headed arrow label
+        const arrowLabelX = knobCenterX + 30;  // Position right of first knob
+        const arrowLabelY = knobCenterY - 15;  // Center vertically with knob
+        const arrowLabelWidth = 90;
+        const arrowLabelHeight = 30;
+
+        // Draw white background rectangle with rounded edges
+        ctx.beginPath();
+        ctx.roundRect(
+            arrowLabelX,
+            arrowLabelY,
+            arrowLabelWidth,
+            arrowLabelHeight,
+            5  // Corner radius
+        );
+        ctx.fillStyle = 'white';
+        ctx.fill();
+
+        // Draw double-headed arrow
+        ctx.beginPath();
+        ctx.moveTo(arrowLabelX + 10, arrowLabelY + arrowLabelHeight/2);  // Start from left
+        ctx.lineTo(arrowLabelX + arrowLabelWidth - 10, arrowLabelY + arrowLabelHeight/2);  // Main line
+
+        // Left arrowhead
+        ctx.moveTo(arrowLabelX + 10, arrowLabelY + arrowLabelHeight/2);
+        ctx.lineTo(arrowLabelX + 20, arrowLabelY + 10);  // Upper point
+        ctx.moveTo(arrowLabelX + 10, arrowLabelY + arrowLabelHeight/2);
+        ctx.lineTo(arrowLabelX + 20, arrowLabelY + arrowLabelHeight - 10);  // Lower point
+
+        // Right arrowhead
+        ctx.moveTo(arrowLabelX + arrowLabelWidth - 10, arrowLabelY + arrowLabelHeight/2);
+        ctx.lineTo(arrowLabelX + arrowLabelWidth - 20, arrowLabelY + 10);  // Upper point
+        ctx.moveTo(arrowLabelX + arrowLabelWidth - 10, arrowLabelY + arrowLabelHeight/2);
+        ctx.lineTo(arrowLabelX + arrowLabelWidth - 20, arrowLabelY + arrowLabelHeight - 10);  // Lower point
+
+        ctx.strokeStyle = 'black';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+
         // Draw second (larger) rotary knob
         const knob2CenterX = knobCenterX + 40 + 24;  // 30px margin + first knob radius
         const knob2CenterY = knobCenterY - 12;  // Same vertical alignment

@@ -25,21 +25,12 @@ class Radio extends Instrument {
         const padding = 10;
         const displayWidth = (this.width - 3 * padding) / 2;  // Width for each frequency display
 
-        // Left display (COM1)
-        // Active frequency display
+        // Create continuous black background for both frequencies
         ctx.fillStyle = '#000';
         ctx.fillRect(
-            this.x + padding, 
+            this.x + padding,
             this.y + (this.height - displayHeight)/2,  // Center vertically
-            displayWidth, 
-            displayHeight
-        );
-
-        // Right display (COM1 Standby)
-        ctx.fillRect(
-            this.x + displayWidth + 2 * padding,
-            this.y + (this.height - displayHeight)/2,  // Center vertically
-            displayWidth, 
+            this.width - 2 * padding,
             displayHeight
         );
 

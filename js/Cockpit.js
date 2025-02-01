@@ -145,13 +145,13 @@ class Cockpit {
     setupInstruments() {
         // Calculate positions based on canvas size
         const size = 180; // Instrument size
-        const padding = 20; // Space between instruments
+        const padding = 30; // Space between instruments
 
         // Start Y position at 55% of canvas height
         const startY = this.canvas.height * 0.55;
 
         // Calculate starting X to center the instruments
-        const totalWidth = (size * 4) + (padding * 2);
+        const totalWidth = (size * 4.5) + (padding * 3);
         const startX = (this.canvas.width - totalWidth) / 2;
 
         // Row 1 (top row)

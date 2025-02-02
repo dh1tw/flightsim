@@ -56,8 +56,10 @@ setInterval(() => {
             pitch: Math.sin(Date.now() / 12000) * 10,
             roll: Math.sin(Date.now() / 10000) * 15
         },
-        turnRate: Math.sin(Date.now() / 8000) * 2,
-        slipSkid: Math.sin(Date.now() / 6000) * 0.3
+        turnIndicator: {
+            turnRate: Math.sin(Date.now() / 8000) * 2,
+            slipSkid: Math.sin(Date.now() / 6000) * 0.3
+        }
         // radio: {
         //     activeFreq: flightState.radio.activeFreq,
         //     standbyFreq: flightState.radio.standbyFreq

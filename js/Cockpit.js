@@ -180,8 +180,8 @@ class Cockpit {
         );
 
         // Row 2 (bottom row)
-        this.instruments.set('turn',
-            new TurnCoordinator(
+        this.instruments.set('turnIndicator',
+            new TurnIndicator(
                 startX,
                 startY + size + padding,
                 size

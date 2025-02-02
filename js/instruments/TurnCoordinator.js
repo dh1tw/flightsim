@@ -1,8 +1,9 @@
-class TurnCoordinator extends Instrument {
+class TurnIndicator extends Instrument {
     constructor(x, y, size) {
         super(x, y, size);
         this.turnRate = 0;    // degrees per second
-        this.slipSkid = 0;    // -1 to 1
+        this.slipSkid = 0;    // -1 to 1 for ball position
+        this.targetTurnRate = 0; // For smooth animation
     }
     
     draw(ctx) {
@@ -14,20 +15,25 @@ class TurnCoordinator extends Instrument {
         
         const radius = this.size/2 - 5;
         
+        // Draw black circular background
+        ctx.beginPath();
+        ctx.arc(0, 0, radius - 10, 0, Math.PI * 2);
+        ctx.fillStyle = 'black';
+        ctx.fill();
+        
         // Draw main markings
-        ctx.strokeStyle = this.colors.markings;
-        ctx.fillStyle = this.colors.markings;
+        ctx.strokeStyle = 'white';
+        ctx.fillStyle = 'white';
         ctx.lineWidth = 2;
         
-        // Draw "2 MIN TURN" text at top
-        ctx.font = `${this.size/15}px Arial`;
-        ctx.textAlign = 'center';
-        ctx.fillText("2 MIN TURN", 0, -radius/2);
-        
-        // Draw turn rate marks and labels
+        // Draw standard rate turn markers (2 min turn = 3 degrees/sec)
         const marks = [
             {angle: -30, label: 'L'},
+            {angle: -20, label: '2'},
+            {angle: -10, label: '1'},
             {angle: 0, label: ''},
+            {angle: 10, label: '1'},
+            {angle: 20, label: '2'},
             {angle: 30, label: 'R'}
         ];
         
@@ -53,26 +59,29 @@ class TurnCoordinator extends Instrument {
             ctx.restore();
         });
         
-        // Draw miniature aircraft
+        // Draw aircraft pointer
         ctx.save();
-        ctx.rotate(this.turnRate * Math.PI/12);  // Scale turn rate to rotation
+        // Smooth turn rate movement
+        this.targetTurnRate = this.turnRate;
+        const rotationAngle = (this.targetTurnRate * 10) * Math.PI/180;
+        ctx.rotate(rotationAngle);
         
-        // Draw aircraft symbol
-        ctx.strokeStyle = this.colors.markings;
+        // Draw aircraft silhouette
+        ctx.strokeStyle = 'white';
         ctx.lineWidth = 2;
         ctx.beginPath();
         
         // Wings
-        ctx.moveTo(-20, 0);
-        ctx.lineTo(20, 0);
+        ctx.moveTo(-15, 0);
+        ctx.lineTo(15, 0);
         
         // Fuselage
-        ctx.moveTo(0, -15);
-        ctx.lineTo(0, 15);
+        ctx.moveTo(0, -20);
+        ctx.lineTo(0, 10);
         
-        // Stabilizers
-        ctx.moveTo(-10, 10);
-        ctx.lineTo(10, 10);
+        // Tail
+        ctx.moveTo(-10, 8);
+        ctx.lineTo(10, 8);
         
         ctx.stroke();
         ctx.restore();
@@ -122,7 +131,15 @@ class TurnCoordinator extends Instrument {
     }
     
     update(data) {
-        this.turnRate = Math.max(-6, Math.min(6, data.turnRate));
-        this.slipSkid = Math.max(-1, Math.min(1, data.slipSkid));
+        if (typeof data === 'object') {
+            // Smooth turn rate transition
+            const turnRateDiff = data.turnRate - this.turnRate;
+            this.turnRate += turnRateDiff * 0.1;
+            
+            // Update slip/skid (ball position)
+            this.slipSkid = Math.max(-1, Math.min(1, data.slipSkid));
+        } else {
+            this.turnRate = Math.max(-6, Math.min(6, data));
+        }
     }
 }

@@ -20,6 +20,13 @@ let flightState = {
     radio: {
         activeFreq: 118.00,
         standbyFreq: 136.97
+    },
+    vor: {
+        course: 0,
+        bearing: 0,
+        deviation: 0,
+        fromFlag: true,
+        isValid: true
     }
 };
 
@@ -38,7 +45,14 @@ let targetState = {
         roll: 0
     },
     turnRate: 0,
-    slipSkid: 0
+    slipSkid: 0,
+    vor: {
+        course: 0,
+        bearing: 0,
+        deviation: 0,
+        fromFlag: true,
+        isValid: true
+    }
 };
 
 // Update targets every 5 seconds
@@ -59,6 +73,13 @@ setInterval(() => {
         turnIndicator: {
             turnRate: Math.sin(Date.now() / 8000) * 2,
             slipSkid: Math.sin(Date.now() / 6000) * 0.3
+        },
+        vor: {
+            course: (targetState.vor?.course || 0) + 0.1,  // Slowly rotate course
+            bearing: Math.sin(Date.now() / 10000) * 180,   // Oscillate bearing
+            deviation: Math.sin(Date.now() / 5000) * 0.5,  // Oscillate deviation
+            fromFlag: Date.now() % 10000 > 5000,          // Toggle TO/FROM every 5 seconds
+            isValid: true
         }
         // radio: {
         //     activeFreq: flightState.radio.activeFreq,

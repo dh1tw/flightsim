@@ -212,6 +212,15 @@ class Cockpit {
             )
         );
 
+        // Add VOR indicator
+        this.instruments.set('vor',
+            new VORIndicator(
+                startX + (size + padding) * 3,
+                startY + size + padding,
+                size
+            )
+        );
+
         // Add radio to the right of the instruments
         this.instruments.set('radio',
             new Radio(

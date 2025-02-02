@@ -27,6 +27,10 @@ let flightState = {
         deviation: 0,
         fromFlag: true,
         isValid: true
+    },
+    ndb: {
+        bearing: 0,
+        heading: 0
     }
 };
 
@@ -52,6 +56,10 @@ let targetState = {
         deviation: 0,
         fromFlag: true,
         isValid: true
+    },
+    ndb: {
+        bearing: 0,
+        heading: 0
     }
 };
 
@@ -80,6 +88,10 @@ setInterval(() => {
             deviation: Math.sin(Date.now() / 5000) * 0.5,  // Oscillate deviation
             fromFlag: Date.now() % 10000 > 5000,          // Toggle TO/FROM every 5 seconds
             isValid: true
+        },
+        ndb: {
+            bearing: Math.sin(Date.now() / 15000) * 180,   // Oscillate bearing
+            heading: targetState.heading  // Use same heading as directional gyro
         }
         // radio: {
         //     activeFreq: flightState.radio.activeFreq,
@@ -109,7 +121,11 @@ function animate() {
             roll: lerp(flightState.attitude.roll, targetState.attitude.roll, 0.1)
         },
         turnRate: lerp(flightState.turnRate, targetState.turnRate, 0.1),
-        slipSkid: lerp(flightState.slipSkid, targetState.slipSkid, 0.1)
+        slipSkid: lerp(flightState.slipSkid, targetState.slipSkid, 0.1),
+        ndb: {
+            bearing: lerp(flightState.ndb.bearing, targetState.ndb.bearing, 0.1),
+            heading: flightState.heading
+        }
     };
 
     // Update and redraw

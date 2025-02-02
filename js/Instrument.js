@@ -145,7 +145,20 @@ class Instrument {
     }
     
     isOverResizeHandle(mouseX, mouseY) {
-        return false;  // Radio is not resizable
+        if (!this.isEditMode) return false;
+        
+        const handleSize = 8;
+        const handles = [
+            { x: this.x, y: this.y - this.size/2 },          // Top
+            { x: this.x, y: this.y + this.size/2 },          // Bottom
+            { x: this.x - this.size/2, y: this.y },          // Left
+            { x: this.x + this.size/2, y: this.y }           // Right
+        ];
+        
+        return handles.some(handle => {
+            return Math.abs(mouseX - handle.x) < handleSize &&
+                   Math.abs(mouseY - handle.y) < handleSize;
+        });
     }
     
     update(data) {

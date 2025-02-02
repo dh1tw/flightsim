@@ -11,46 +11,6 @@ class Radio extends Instrument {
                py >= this.y && py <= this.y + this.height;
     }
 
-    resize(mouseX, mouseY) {
-        if (this.isResizing) {
-            const dx = mouseX - this.x;
-            const dy = mouseY - this.y;
-            this.width = Math.max(this.minSize, Math.abs(dx) * 2);
-            this.height = Math.max(this.minSize/2, Math.abs(dy) * 2);
-        }
-    }
-    
-    drawResizeHandles(ctx) {
-        if (this.isEditMode) {
-            const handleSize = 8;
-            const handles = [
-                { x: this.width/2, y: 0 },          // Top
-                { x: this.width/2, y: this.height }, // Bottom
-                { x: 0, y: this.height/2 },         // Left
-                { x: this.width, y: this.height/2 }  // Right
-            ];
-            
-            ctx.save();
-            ctx.translate(this.x, this.y);
-            
-            handles.forEach(handle => {
-                ctx.beginPath();
-                ctx.rect(
-                    handle.x - handleSize/2,
-                    handle.y - handleSize/2,
-                    handleSize,
-                    handleSize
-                );
-                ctx.fillStyle = 'white';
-                ctx.strokeStyle = 'black';
-                ctx.lineWidth = 1;
-                ctx.fill();
-                ctx.stroke();
-            });
-            
-            ctx.restore();
-        }
-    }
 
     draw(ctx) {
         // Draw radio box

@@ -33,16 +33,19 @@ class Cockpit {
             const mouseX = e.clientX - rect.left;
             const mouseY = e.clientY - rect.top;
 
-            const instruments = Array.from(this.instruments.values()).reverse();
-            for (let instrument of instruments) {
-                if (instrument.isEditMode && instrument.isOverResizeHandle(mouseX, mouseY)) {
-                    instrument.startResize(mouseX, mouseY);
-                    this.draggedInstrument = instrument;
-                    break;
-                } else if (instrument.containsPoint(mouseX, mouseY)) {
-                    instrument.startDrag(mouseX, mouseY);
-                    this.draggedInstrument = instrument;
-                    break;
+            // Only handle mouse events if in edit mode
+            if (this.isEditMode) {
+                const instruments = Array.from(this.instruments.values()).reverse();
+                for (let instrument of instruments) {
+                    if (instrument.isEditMode && instrument.isOverResizeHandle(mouseX, mouseY)) {
+                        instrument.startResize(mouseX, mouseY);
+                        this.draggedInstrument = instrument;
+                        break;
+                    } else if (instrument.containsPoint(mouseX, mouseY)) {
+                        instrument.startDrag(mouseX, mouseY);
+                        this.draggedInstrument = instrument;
+                        break;
+                    }
                 }
             }
         });

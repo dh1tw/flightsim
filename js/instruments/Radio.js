@@ -9,12 +9,47 @@ class Radio extends Instrument {
     containsPoint(px, py) {
         return px >= this.x && px <= this.x + this.width &&
                py >= this.y && py <= this.y + this.height;
-        this.activeFreq = 128.30;      // Active COMM frequency
-        this.standbyFreq = 118.70;     // Standby COMM frequency
-        this.activeNavFreq = 113.00;   // Active NAV frequency
-        this.standbyNavFreq = 117.20;  // Standby NAV frequency
-        this.isFlipping = false;   // Animation state for freq swap
-        this.knobPosition = 0;  // Fixed to FULL position
+    }
+
+    resize(mouseX, mouseY) {
+        if (this.isResizing) {
+            const dx = mouseX - this.x;
+            const dy = mouseY - this.y;
+            this.width = Math.max(this.minSize, Math.abs(dx) * 2);
+            this.height = Math.max(this.minSize/2, Math.abs(dy) * 2);
+        }
+    }
+    
+    drawResizeHandles(ctx) {
+        if (this.isEditMode) {
+            const handleSize = 8;
+            const handles = [
+                { x: this.width/2, y: 0 },          // Top
+                { x: this.width/2, y: this.height }, // Bottom
+                { x: 0, y: this.height/2 },         // Left
+                { x: this.width, y: this.height/2 }  // Right
+            ];
+            
+            ctx.save();
+            ctx.translate(this.x, this.y);
+            
+            handles.forEach(handle => {
+                ctx.beginPath();
+                ctx.rect(
+                    handle.x - handleSize/2,
+                    handle.y - handleSize/2,
+                    handleSize,
+                    handleSize
+                );
+                ctx.fillStyle = 'white';
+                ctx.strokeStyle = 'black';
+                ctx.lineWidth = 1;
+                ctx.fill();
+                ctx.stroke();
+            });
+            
+            ctx.restore();
+        }
     }
 
     draw(ctx) {

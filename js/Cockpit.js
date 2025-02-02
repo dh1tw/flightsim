@@ -6,6 +6,25 @@ class Cockpit {
         this.setupInstruments();
         this.setupMouseHandlers();
         this.draggedInstrument = null;
+        this.isEditMode = false;
+        this.setupEditModeToggle();
+    }
+
+    setupEditModeToggle() {
+        const button = document.createElement('button');
+        button.textContent = 'Toggle Edit Mode';
+        button.style.position = 'absolute';
+        button.style.top = '10px';
+        button.style.left = '10px';
+        document.body.appendChild(button);
+        
+        button.addEventListener('click', () => {
+            this.isEditMode = !this.isEditMode;
+            button.textContent = this.isEditMode ? 'Exit Edit Mode' : 'Toggle Edit Mode';
+            for (let instrument of this.instruments.values()) {
+                instrument.isEditMode = this.isEditMode;
+            }
+        });
     }
 
     setupMouseHandlers() {
@@ -13,31 +32,42 @@ class Cockpit {
             const rect = this.canvas.getBoundingClientRect();
             const mouseX = e.clientX - rect.left;
             const mouseY = e.clientY - rect.top;
-
-            // Check each instrument in reverse order (top-most first)
+            
             const instruments = Array.from(this.instruments.values()).reverse();
             for (let instrument of instruments) {
-                if (instrument.containsPoint(mouseX, mouseY)) {
+                if (instrument.isEditMode && instrument.isOverResizeHandle(mouseX, mouseY)) {
+                    instrument.startResize(mouseX, mouseY);
+                    this.draggedInstrument = instrument;
+                    break;
+                } else if (instrument.containsPoint(mouseX, mouseY)) {
                     instrument.startDrag(mouseX, mouseY);
                     this.draggedInstrument = instrument;
                     break;
                 }
             }
         });
-
+        
         this.canvas.addEventListener('mousemove', (e) => {
             if (this.draggedInstrument) {
                 const rect = this.canvas.getBoundingClientRect();
                 const mouseX = e.clientX - rect.left;
                 const mouseY = e.clientY - rect.top;
-
-                this.draggedInstrument.drag(mouseX, mouseY);
+                
+                if (this.draggedInstrument.isResizing) {
+                    this.draggedInstrument.resize(mouseX, mouseY);
+                } else {
+                    this.draggedInstrument.drag(mouseX, mouseY);
+                }
             }
         });
-
+        
         this.canvas.addEventListener('mouseup', () => {
             if (this.draggedInstrument) {
-                this.draggedInstrument.stopDrag();
+                if (this.draggedInstrument.isResizing) {
+                    this.draggedInstrument.stopResize();
+                } else {
+                    this.draggedInstrument.stopDrag();
+                }
                 this.draggedInstrument = null;
             }
         });

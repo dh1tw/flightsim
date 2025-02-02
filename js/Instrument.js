@@ -6,6 +6,10 @@ class Instrument {
         this.isDragging = false;
         this.dragOffsetX = 0;
         this.dragOffsetY = 0;
+        this.isResizing = false;
+        this.isEditMode = false;
+        this.minSize = 100;  // Minimum size allowed
+        this.maxSize = 300;  // Maximum size allowed
         
         // Common colors for all instruments
         this.colors = {
@@ -80,10 +84,80 @@ class Instrument {
         ctx.stroke();
     }
     
+    startResize(mouseX, mouseY) {
+        this.isResizing = true;
+        this.dragOffsetX = mouseX - this.x;
+        this.dragOffsetY = mouseY - this.y;
+    }
+    
+    resize(mouseX, mouseY) {
+        if (this.isResizing) {
+            const dx = mouseX - this.x;
+            const dy = mouseY - this.y;
+            const newSize = Math.min(this.maxSize, 
+                          Math.max(this.minSize, 
+                          Math.sqrt(dx * dx + dy * dy) * 2));
+            this.size = newSize;
+        }
+    }
+    
+    stopResize() {
+        this.isResizing = false;
+    }
+    
+    drawResizeHandles(ctx) {
+        if (this.isEditMode) {
+            const handleSize = 8;
+            const handles = [
+                { x: this.size/2, y: 0 },          // Top
+                { x: this.size/2, y: this.size },  // Bottom
+                { x: 0, y: this.size/2 },          // Left
+                { x: this.size, y: this.size/2 }   // Right
+            ];
+            
+            ctx.save();
+            ctx.translate(this.x - this.size/2, this.y - this.size/2);
+            
+            handles.forEach(handle => {
+                ctx.beginPath();
+                ctx.rect(
+                    handle.x - handleSize/2,
+                    handle.y - handleSize/2,
+                    handleSize,
+                    handleSize
+                );
+                ctx.fillStyle = 'white';
+                ctx.strokeStyle = 'black';
+                ctx.lineWidth = 1;
+                ctx.fill();
+                ctx.stroke();
+            });
+            
+            ctx.restore();
+        }
+    }
+    
     draw(ctx) {
-        // Draw common background first
         this.drawInstrumentBackground(ctx);
         // Specific instrument drawing will be implemented in subclasses
+        this.drawResizeHandles(ctx);
+    }
+    
+    isOverResizeHandle(mouseX, mouseY) {
+        if (!this.isEditMode) return false;
+        
+        const handleSize = 8;
+        const handles = [
+            { x: this.x, y: this.y - this.size/2 },  // Top
+            { x: this.x, y: this.y + this.size/2 },  // Bottom
+            { x: this.x - this.size/2, y: this.y },  // Left
+            { x: this.x + this.size/2, y: this.y }   // Right
+        ];
+        
+        return handles.some(handle => {
+            return Math.abs(mouseX - handle.x) < handleSize &&
+                   Math.abs(mouseY - handle.y) < handleSize;
+        });
     }
     
     update(data) {

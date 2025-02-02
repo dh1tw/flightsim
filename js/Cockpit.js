@@ -221,6 +221,15 @@ class Cockpit {
             )
         );
 
+        // Add NDB indicator
+        this.instruments.set('ndb',
+            new NDBIndicator(
+                startX + (size + padding) * 3,
+                startY + size + padding,
+                size
+            )
+        );
+
         // Add radio to the right of the instruments
         this.instruments.set('radio',
             new Radio(

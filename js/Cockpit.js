@@ -13,7 +13,7 @@ class Cockpit {
             const rect = this.canvas.getBoundingClientRect();
             const mouseX = e.clientX - rect.left;
             const mouseY = e.clientY - rect.top;
-            
+
             // Check each instrument in reverse order (top-most first)
             const instruments = Array.from(this.instruments.values()).reverse();
             for (let instrument of instruments) {
@@ -24,24 +24,24 @@ class Cockpit {
                 }
             }
         });
-        
+
         this.canvas.addEventListener('mousemove', (e) => {
             if (this.draggedInstrument) {
                 const rect = this.canvas.getBoundingClientRect();
                 const mouseX = e.clientX - rect.left;
                 const mouseY = e.clientY - rect.top;
-                
+
                 this.draggedInstrument.drag(mouseX, mouseY);
             }
         });
-        
+
         this.canvas.addEventListener('mouseup', () => {
             if (this.draggedInstrument) {
                 this.draggedInstrument.stopDrag();
                 this.draggedInstrument = null;
             }
         });
-        
+
         this.canvas.addEventListener('mouseleave', () => {
             if (this.draggedInstrument) {
                 this.draggedInstrument.stopDrag();
@@ -275,14 +275,14 @@ class Cockpit {
         );
 
         // Add radio to the right of the instruments
-        this.instruments.set('radio',
-            new Radio(
-                startX + (size + padding) * 3,
-                startY,  // Same Y as top row
-                size * 2.25,  // Increased from 1.5 to 1.8 (20% wider)
-                size * 0.8   // Keep same height
-            )
-        );
+        // this.instruments.set('radio',
+        //     new Radio(
+        //         startX + (size + padding) * 3,
+        //         startY,  // Same Y as top row
+        //         size * 2.25,  // Increased from 1.5 to 1.8 (20% wider)
+        //         size * 0.8   // Keep same height
+        //     )
+        // );
     }
 
     draw() {

@@ -109,15 +109,14 @@ class Instrument {
         if (this.isEditMode) {
             const handleSize = 8;
             const handles = [
-                { x: this.size/2, y: 0 },          // Top
-                { x: this.size/2, y: this.size },  // Bottom
-                { x: 0, y: this.size/2 },          // Left
-                { x: this.size, y: this.size/2 }   // Right
+                { x: -this.size/2, y: 0 },          // Left
+                { x: this.size/2, y: 0 },           // Right
+                { x: 0, y: -this.size/2 },          // Top
+                { x: 0, y: this.size/2 }            // Bottom
             ];
             
-            ctx.save();
-            ctx.translate(this.x - this.size/2, this.y - this.size/2);
-            
+            // No need for additional translation since we're already translated
+            // to the instrument's center in the main draw method
             handles.forEach(handle => {
                 ctx.beginPath();
                 ctx.rect(
@@ -132,8 +131,6 @@ class Instrument {
                 ctx.fill();
                 ctx.stroke();
             });
-            
-            ctx.restore();
         }
     }
     

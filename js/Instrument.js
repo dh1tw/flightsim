@@ -138,9 +138,13 @@ class Instrument {
     }
     
     draw(ctx) {
+        // Draw the instrument background
         this.drawInstrumentBackground(ctx);
-        // Specific instrument drawing will be implemented in subclasses
-        this.drawResizeHandles(ctx);
+        
+        // Draw resize handles if in edit mode
+        if (this.isEditMode) {
+            this.drawResizeHandles(ctx);
+        }
     }
     
     isOverResizeHandle(mouseX, mouseY) {

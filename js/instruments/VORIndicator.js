@@ -103,6 +103,11 @@ class VORIndicator extends Instrument {
         ctx.fillStyle = 'white';
         ctx.fill();
         
+        // Draw resize handles if in edit mode
+        if (this.isEditMode) {
+            this.drawResizeHandles(ctx);
+        }
+
         ctx.restore();
     }
     

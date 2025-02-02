@@ -174,6 +174,11 @@ class AttitudeIndicator extends Instrument {
         ctx.closePath();
         ctx.fillStyle = 'yellow';
         ctx.fill();
+
+        // Draw resize handles if in edit mode
+        if (this.isEditMode) {
+            this.drawResizeHandles(ctx);
+        }
     }
 
     update(data) {

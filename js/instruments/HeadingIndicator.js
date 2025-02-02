@@ -129,6 +129,11 @@ class HeadingIndicator extends Instrument {
             ctx.restore();
         });
 
+        // Draw resize handles if in edit mode
+        if (this.isEditMode) {
+            this.drawResizeHandles(ctx);
+        }
+
         ctx.restore();
     }
 

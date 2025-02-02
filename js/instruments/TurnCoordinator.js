@@ -127,6 +127,11 @@ class TurnIndicator extends Instrument {
         ctx.fillStyle = this.colors.markings;
         ctx.fillText("NO PITCH INFORMATION", 0, radius * 0.8);
         
+        // Draw resize handles if in edit mode
+        if (this.isEditMode) {
+            this.drawResizeHandles(ctx);
+        }
+
         ctx.restore();
     }
     

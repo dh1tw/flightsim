@@ -83,6 +83,11 @@ class MagneticCompass extends Instrument {
         ctx.fillStyle = liquidGradient;
         ctx.fillRect(-radius/2, -radius/3, radius, radius/2);
         
+        // Draw resize handles if in edit mode
+        if (this.isEditMode) {
+            this.drawResizeHandles(ctx);
+        }
+
         ctx.restore();
     }
     

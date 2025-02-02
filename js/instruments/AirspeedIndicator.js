@@ -145,6 +145,11 @@ class AirspeedIndicator extends Instrument {
         ctx.lineWidth = 2;
         ctx.stroke();
 
+        // Draw resize handles if in edit mode
+        if (this.isEditMode) {
+            this.drawResizeHandles(ctx);
+        }
+
         ctx.restore();
 
         // Draw speed value and KNOTS text in upper part

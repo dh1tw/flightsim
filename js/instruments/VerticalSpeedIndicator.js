@@ -61,6 +61,11 @@ class VerticalSpeedIndicator extends Instrument {
         ctx.textAlign = 'center';
         ctx.fillText("UP", this.x, this.y - this.size/3);
         ctx.fillText("DOWN", this.x, this.y + this.size/3);
+
+        // Draw resize handles if in edit mode
+        if (this.isEditMode) {
+            this.drawResizeHandles(ctx);
+        }
     }
     
     update(verticalSpeed) {

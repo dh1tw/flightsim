@@ -3,6 +3,12 @@ class Radio extends Instrument {
         super(x, y, width);
         this.width = width;
         this.height = height || width / 2;
+        
+    }
+
+    containsPoint(px, py) {
+        return px >= this.x && px <= this.x + this.width &&
+               py >= this.y && py <= this.y + this.height;
         this.activeFreq = 128.30;      // Active COMM frequency
         this.standbyFreq = 118.70;     // Standby COMM frequency
         this.activeNavFreq = 113.00;   // Active NAV frequency

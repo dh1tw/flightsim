@@ -3,6 +3,9 @@ class Instrument {
         this.x = x;
         this.y = y;
         this.size = size;
+        this.isDragging = false;
+        this.dragOffsetX = 0;
+        this.dragOffsetY = 0;
         
         // Common colors for all instruments
         this.colors = {
@@ -14,6 +17,29 @@ class Instrument {
             needleShadow: 'rgba(0,0,0,0.5)', // Needle shadow
             graduations: '#ffffff'      // White graduations
         };
+    }
+
+    containsPoint(px, py) {
+        const dx = px - this.x;
+        const dy = py - this.y;
+        return Math.sqrt(dx * dx + dy * dy) <= this.size/2;
+    }
+    
+    startDrag(mouseX, mouseY) {
+        this.isDragging = true;
+        this.dragOffsetX = mouseX - this.x;
+        this.dragOffsetY = mouseY - this.y;
+    }
+    
+    drag(mouseX, mouseY) {
+        if (this.isDragging) {
+            this.x = mouseX - this.dragOffsetX;
+            this.y = mouseY - this.dragOffsetY;
+        }
+    }
+    
+    stopDrag() {
+        this.isDragging = false;
     }
     
     drawInstrumentBackground(ctx) {

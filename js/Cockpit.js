@@ -4,6 +4,50 @@ class Cockpit {
         this.ctx = this.canvas.getContext('2d');
         this.instruments = new Map();
         this.setupInstruments();
+        this.setupMouseHandlers();
+        this.draggedInstrument = null;
+    }
+
+    setupMouseHandlers() {
+        this.canvas.addEventListener('mousedown', (e) => {
+            const rect = this.canvas.getBoundingClientRect();
+            const mouseX = e.clientX - rect.left;
+            const mouseY = e.clientY - rect.top;
+            
+            // Check each instrument in reverse order (top-most first)
+            const instruments = Array.from(this.instruments.values()).reverse();
+            for (let instrument of instruments) {
+                if (instrument.containsPoint(mouseX, mouseY)) {
+                    instrument.startDrag(mouseX, mouseY);
+                    this.draggedInstrument = instrument;
+                    break;
+                }
+            }
+        });
+        
+        this.canvas.addEventListener('mousemove', (e) => {
+            if (this.draggedInstrument) {
+                const rect = this.canvas.getBoundingClientRect();
+                const mouseX = e.clientX - rect.left;
+                const mouseY = e.clientY - rect.top;
+                
+                this.draggedInstrument.drag(mouseX, mouseY);
+            }
+        });
+        
+        this.canvas.addEventListener('mouseup', () => {
+            if (this.draggedInstrument) {
+                this.draggedInstrument.stopDrag();
+                this.draggedInstrument = null;
+            }
+        });
+        
+        this.canvas.addEventListener('mouseleave', () => {
+            if (this.draggedInstrument) {
+                this.draggedInstrument.stopDrag();
+                this.draggedInstrument = null;
+            }
+        });
     }
 
     drawWindow() {

@@ -4,6 +4,13 @@ class Radio extends Instrument {
         this.width = width;
         this.height = height || width / 2;
         
+        // Add back the frequency variables
+        this.activeFreq = 118.00;      // Active COMM frequency
+        this.standbyFreq = 136.97;     // Standby COMM frequency
+        this.activeNavFreq = 108.00;   // Active NAV frequency
+        this.standbyNavFreq = 112.85;  // Standby NAV frequency
+        this.knobPosition = 'FULL';    // Position of the power knob
+        
     }
 
     containsPoint(px, py) {

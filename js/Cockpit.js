@@ -212,20 +212,20 @@ class Cockpit {
             )
         );
 
-        // Add VOR indicator
-        this.instruments.set('vor',
-            new VORIndicator(
+        // Add NDB indicator (to the right of altimeter)
+        this.instruments.set('ndb',
+            new NDBIndicator(
                 startX + (size + padding) * 3,
-                startY + size + padding,
+                startY,  // Same Y as top row
                 size
             )
         );
 
-        // Add NDB indicator
-        this.instruments.set('ndb',
-            new NDBIndicator(
+        // Add VOR indicator
+        this.instruments.set('vor',
+            new VORIndicator(
                 startX + (size + padding) * 3,
-                startY + size + padding,
+                startY + size + padding,  // Bottom row
                 size
             )
         );

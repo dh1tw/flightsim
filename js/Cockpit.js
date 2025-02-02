@@ -17,7 +17,7 @@ class Cockpit {
         button.style.top = '10px';
         button.style.left = '10px';
         document.body.appendChild(button);
-        
+
         button.addEventListener('click', () => {
             this.isEditMode = !this.isEditMode;
             button.textContent = this.isEditMode ? 'Exit Edit Mode' : 'Toggle Edit Mode';
@@ -32,7 +32,7 @@ class Cockpit {
             const rect = this.canvas.getBoundingClientRect();
             const mouseX = e.clientX - rect.left;
             const mouseY = e.clientY - rect.top;
-            
+
             const instruments = Array.from(this.instruments.values()).reverse();
             for (let instrument of instruments) {
                 if (instrument.isEditMode && instrument.isOverResizeHandle(mouseX, mouseY)) {
@@ -46,13 +46,13 @@ class Cockpit {
                 }
             }
         });
-        
+
         this.canvas.addEventListener('mousemove', (e) => {
             if (this.draggedInstrument) {
                 const rect = this.canvas.getBoundingClientRect();
                 const mouseX = e.clientX - rect.left;
                 const mouseY = e.clientY - rect.top;
-                
+
                 if (this.draggedInstrument.isResizing) {
                     this.draggedInstrument.resize(mouseX, mouseY);
                 } else {
@@ -60,7 +60,7 @@ class Cockpit {
                 }
             }
         });
-        
+
         this.canvas.addEventListener('mouseup', () => {
             if (this.draggedInstrument) {
                 if (this.draggedInstrument.isResizing) {
@@ -305,14 +305,14 @@ class Cockpit {
         );
 
         // Add radio to the right of the instruments
-        // this.instruments.set('radio',
-        //     new Radio(
-        //         startX + (size + padding) * 3,
-        //         startY,  // Same Y as top row
-        //         size * 2.25,  // Increased from 1.5 to 1.8 (20% wider)
-        //         size * 0.8   // Keep same height
-        //     )
-        // );
+        this.instruments.set('radio',
+            new Radio(
+                startX + (size + padding) * 3,
+                startY,  // Same Y as top row
+                size * 2.25,  // Increased from 1.5 to 1.8 (20% wider)
+                size * 0.8   // Keep same height
+            )
+        );
     }
 
     draw() {

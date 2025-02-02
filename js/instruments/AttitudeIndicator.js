@@ -39,36 +39,36 @@ class AttitudeIndicator extends Instrument {
         ctx.strokeStyle = 'white';
         ctx.fillStyle = 'white';
         ctx.textAlign = 'center';
-        ctx.font = `${this.size/20}px Arial`;
+        ctx.font = `${this.size / 20}px Arial`;
 
         // Draw pitch lines from -20 to +20 degrees
         for (let i = -20; i <= 20; i += 5) {
             // Skip +5 degree mark
             if (i === 5) continue;
-            
+
             const y = -i * this.size / 180 + pitchOffset;
             let width;
-            
+
             if (i % 20 === 0) {  // 20° marks
                 width = this.size * 0.336 + (Math.abs(i) * this.size / 180); // Reduced by 20% from 0.42
                 ctx.lineWidth = 2;
-                
+
                 // Add numbers on both sides (except for 0°)
                 if (i !== 0) {
-                    ctx.fillText(Math.abs(i).toString(), -width/2 - 5, y);
-                    ctx.fillText(Math.abs(i).toString(), width/2 + 5, y);
+                    ctx.fillText(Math.abs(i).toString(), -width / 2 - 5, y);
+                    ctx.fillText(Math.abs(i).toString(), width / 2 + 5, y);
                 }
-                
+
             } else if (i % 10 === 0) {  // 10° marks
                 width = this.size * 0.28 + (Math.abs(i) * this.size / 180); // Longer for higher angles (reduced from 0.4)
                 ctx.lineWidth = 2;
-    
+
                 // Add numbers on both sides (except for 0°)
                 if (i !== 0) {
-                    ctx.fillText(Math.abs(i).toString(), -width/2 - 5, y);
-                    ctx.fillText(Math.abs(i).toString(), width/2 + 5, y);
+                    ctx.fillText(Math.abs(i).toString(), -width / 2 - 5, y);
+                    ctx.fillText(Math.abs(i).toString(), width / 2 + 5, y);
                 }
-                
+
             } else {  // 15° and -5° marks
                 width = this.size * 0.14;  // Shorter lines (reduced from 0.2)
                 ctx.lineWidth = 4;  // Thicker lines
@@ -76,17 +76,17 @@ class AttitudeIndicator extends Instrument {
 
             // Draw the line with a gap in the middle for better readability
             const gapWidth = this.size * 0.1; // Size of the gap in the middle
-            
+
             // Draw left half
             ctx.beginPath();
-            ctx.moveTo(-width/2, y);
-            ctx.lineTo(-gapWidth/2, y);
+            ctx.moveTo(-width / 2, y);
+            ctx.lineTo(-gapWidth / 2, y);
             ctx.stroke();
-            
+
             // Draw right half
             ctx.beginPath();
-            ctx.moveTo(gapWidth/2, y);
-            ctx.lineTo(width/2, y);
+            ctx.moveTo(gapWidth / 2, y);
+            ctx.lineTo(width / 2, y);
             ctx.stroke();
         }
 
@@ -129,9 +129,9 @@ class AttitudeIndicator extends Instrument {
 
         // Draw inner circle at roll indicator ends
         ctx.beginPath();
-        ctx.arc(0, 0, this.size/2 - 25, 0, Math.PI * 2);  // Position where roll marks end
-        ctx.fillStyle = 'black';
-        ctx.fill();
+        ctx.arc(0, 0, this.size / 2 - 25, 0, Math.PI * 2);  // Position where roll marks end
+        // ctx.fillStyle = 'none';
+        // ctx.fill();
         ctx.strokeStyle = '#7EC0EE';  // Light blue
         ctx.lineWidth = 1;
         ctx.stroke();

@@ -217,8 +217,8 @@ class Cockpit {
             new Radio(
                 startX + (size + padding) * 3,
                 startY,  // Same Y as top row
-                size * 1.8,  // Increased from 1.5 to 1.8 (20% wider)
-                size * 0.6   // Keep same height
+                size * 2.25,  // Increased from 1.5 to 1.8 (20% wider)
+                size * 0.8   // Keep same height
             )
         );
     }

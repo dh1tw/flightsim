@@ -117,15 +117,15 @@ class HeadingIndicator extends Instrument {
         triangleAngles.forEach(angle => {
             ctx.save();
             ctx.rotate(angle * Math.PI / 180);
-            
+
             // Draw triangle pointing inward from the outside
             ctx.beginPath();
-            ctx.moveTo(0, -radius - 10);  // Point starts outside
+            ctx.moveTo(0, -radius + 10);  // Point starts outside
             ctx.lineTo(-6, -radius);      // Left point at edge
             ctx.lineTo(6, -radius);       // Right point at edge
             ctx.closePath();
             ctx.fill();
-            
+
             ctx.restore();
         });
 
